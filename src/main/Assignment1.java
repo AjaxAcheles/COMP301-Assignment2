@@ -93,7 +93,7 @@ public class Assignment1 {
             testLine.rotate(LINE_ROTATE_MINUS_45);
         }
 
-        if (ROTATING_LINE_MODE.equals(mode)) {
+        else if (ROTATING_LINE_MODE.equals(mode)) {
             LineInterface testLine = new RotatingLine(DEFAULT_ORIGIN_X, DEFAULT_ORIGIN_Y, TEST_LEGS_RADIUS, DEFAULT_ANGLE_RADIANS); 
             ObjectEditor.edit(testLine);
 

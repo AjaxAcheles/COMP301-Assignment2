@@ -18,6 +18,7 @@ public class Assignment2 {
     private static final String QUEST_QUESTION = "What is your quest?";
     private static final String ARTHUR_QUEST = "To seek the Holy Grail.";
     private static final String LANCELOT_COLOR_QUESTION = "Halt! What is your favorite color?";
+    private static final String LANCELOT_COLOR_ANSWER = "Blue!";
     private static final String ROBIN_NAME = "Sir Robin of Camelot.";
     private static final String SWALLOW_QUESTION = "What is the airspeed velocity of an unladen swallow?";
     private static final String SWALLOW_REPLY = "African or European swallow?";
@@ -43,6 +44,10 @@ public class Assignment2 {
         ThreadSupport.sleep(PAUSE_TIME);
 
         bridgeScene.getGalahad().getArms().rotate(LEGACY_ROTATION_DEGREES);
+        ThreadSupport.sleep(PAUSE_TIME);
+
+        bridgeScene.getGalahad().getArms().rotate(-LEGACY_ROTATION_DEGREES);
+        bridgeScene.getGalahad().move(-LEGACY_MOVE_X, -LEGACY_MOVE_Y);
         ThreadSupport.sleep(PAUSE_TIME);
     }
 
@@ -71,6 +76,9 @@ public class Assignment2 {
         ThreadSupport.sleep(PAUSE_TIME);
 
         bridgeScene.say(LANCELOT_COLOR_QUESTION);
+        ThreadSupport.sleep(PAUSE_TIME);
+
+        bridgeScene.say(LANCELOT_COLOR_ANSWER);
         ThreadSupport.sleep(PAUSE_TIME);
 
         bridgeScene.failed();

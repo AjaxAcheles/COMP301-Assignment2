@@ -12,6 +12,7 @@ import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
 import util.annotations.Tags;
 import util.annotations.Visible;
+import util.models.AListenableVector;
 
 @Tags(Comp301Tags.LOCATABLE)
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
@@ -25,7 +26,7 @@ public class Locatable implements LocatableInterface {
     public Locatable(int x, int y) {
         this.x = x;
         this.y = y;
-        this.propertyChangeListeners = new java.util.ArrayList<PropertyChangeListener>();
+        this.propertyChangeListeners = new AListenableVector<PropertyChangeListener>();
     }
 
     @Override

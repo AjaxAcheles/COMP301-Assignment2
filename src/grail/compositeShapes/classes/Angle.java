@@ -20,24 +20,20 @@ public class Angle implements AngleInterface {
     private static final double DEFAULT_RADIUS = 50;
     private static final double DEFAULT_SPLIT_ANGLE_RADIANS = Math.PI / 2;
     private static final double DEFAULT_DOWN_DIRECTION_RADIANS = Math.PI / 2;
+    private static final double ANGLE_SIDE_DIVISOR = 2.0;
 
     private LineInterface leftLine;
     private LineInterface rightLine;
-    private double radius;
-    private double splitAngleRadians;
-    private double downDirectionRadians;
 
     public Angle() {
         this(DEFAULT_X, DEFAULT_Y, DEFAULT_RADIUS, DEFAULT_SPLIT_ANGLE_RADIANS, DEFAULT_DOWN_DIRECTION_RADIANS);
     }
 
     public Angle(int x, int y, double radius, double splitAngleRadians, double downDirectionRadians) {
-        this.radius = radius;
-        this.splitAngleRadians = splitAngleRadians;
-        this.downDirectionRadians = downDirectionRadians;
-
-        this.leftLine = new RotatingLine(x, y, radius, downDirectionRadians - splitAngleRadians / 2);
-        this.rightLine = new RotatingLine(x, y, radius, downDirectionRadians + splitAngleRadians / 2);
+        this.leftLine = new RotatingLine(x, y, radius,
+                downDirectionRadians - splitAngleRadians / ANGLE_SIDE_DIVISOR);
+        this.rightLine = new RotatingLine(x, y, radius,
+                downDirectionRadians + splitAngleRadians / ANGLE_SIDE_DIVISOR);
     }
 
     @Override

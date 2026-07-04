@@ -16,6 +16,7 @@ import util.annotations.Visible;
 public class StandingArea implements StandingAreaInterface {
     private static final double ZERO_ANGLE_RADIANS = 0;
     private static final double DOWN_DIRECTION_RADIANS = Math.PI / 2;
+    private static final int CENTER_DIVISOR = 2;
 
     private int x;
     private int y;
@@ -60,13 +61,13 @@ public class StandingArea implements StandingAreaInterface {
     @Override
     @Visible(false)
     public int getCenterX() {
-        return this.x + this.width / 2;
+        return this.x + this.width / CENTER_DIVISOR;
     }
 
     @Override
     @Visible(false)
     public int getCenterY() {
-        return this.y + this.height / 2;
+        return this.y + this.height / CENTER_DIVISOR;
     }
 
     @Override

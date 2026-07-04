@@ -7,12 +7,16 @@ import grail.atomicShapes.interfaces.PointInterface;
 import grail.simpleShapes.interfaces.LineInterface;
 import grail.shapes.classes.BoundedShape;
 import tags301.Comp301Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
 import util.annotations.Tags;
 
 @StructurePattern(StructurePatternNames.LINE_PATTERN)
 @Tags(Comp301Tags.ROTATING_LINE)
+@PropertyNames({"X", "Y", "Width", "Height", "Radius", "Angle", "End", "PropertyChangeListeners"})
+@EditablePropertyNames({"X", "Y", "Width", "Height", "Radius", "Angle"})
 public class RotatingLine extends BoundedShape implements LineInterface {
     
     private static final int DEFAULT_X = 100;

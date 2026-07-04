@@ -29,6 +29,7 @@ public class Avatar implements AvatarInterface {
     private static final double LEG_SPLIT_ANGLE_RADIANS = Math.PI / 3;
     private static final double ARM_SPLIT_ANGLE_RADIANS = Math.PI / 2;
     private static final double DOWN_DIRECTION_RADIANS = Math.PI / 2;
+    private static final double SIZE_DIVISOR = 2.0;
     
     private int x;
     private int y;
@@ -52,7 +53,7 @@ public class Avatar implements AvatarInterface {
 
         this.arms = new Angle(neckX, neckY, ARM_RADIUS, ARM_SPLIT_ANGLE_RADIANS, DOWN_DIRECTION_RADIANS);
 
-        this.head = new Image(neckX - HEAD_WIDTH / 2, neckY - HEAD_HEIGHT,
+        this.head = new Image(neckX - (int) (HEAD_WIDTH / SIZE_DIVISOR), neckY - HEAD_HEIGHT,
                               HEAD_WIDTH, HEAD_HEIGHT, "", headImage);
 
         this.speechBubble = new Text(speech, this.x + HEAD_WIDTH, neckY - HEAD_HEIGHT);
@@ -65,7 +66,7 @@ public class Avatar implements AvatarInterface {
 
     @Override
     public void setX(int newX) {
-        this.x = newX;
+        this.move(newX - this.x, 0);
     }
 
     @Override
@@ -75,7 +76,7 @@ public class Avatar implements AvatarInterface {
 
     @Override
     public void setY(int newY) {
-        this.y = newY;
+        this.move(0, newY - this.y);
     }
     
     @Override
@@ -151,10 +152,10 @@ public class Avatar implements AvatarInterface {
         this.arms.rotate(rotationUnits);
 
         double bodyAngleRadians = this.body.getAngle();
-        int headCenterX = neckX + (int) Math.round((this.head.getHeight() / 2.0) * Math.cos(bodyAngleRadians));
-        int headCenterY = neckY + (int) Math.round((this.head.getHeight() / 2.0) * Math.sin(bodyAngleRadians));
-        this.head.setX(headCenterX - this.head.getWidth() / 2);
-        this.head.setY(headCenterY - this.head.getHeight() / 2);
+        int headCenterX = neckX + (int) Math.round((this.head.getHeight() / SIZE_DIVISOR) * Math.cos(bodyAngleRadians));
+        int headCenterY = neckY + (int) Math.round((this.head.getHeight() / SIZE_DIVISOR) * Math.sin(bodyAngleRadians));
+        this.head.setX(headCenterX - (int) (this.head.getWidth() / SIZE_DIVISOR));
+        this.head.setY(headCenterY - (int) (this.head.getHeight() / SIZE_DIVISOR));
 
         this.speechBubble.setX(this.head.getX() + this.head.getWidth());
         this.speechBubble.setY(this.head.getY());

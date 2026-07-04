@@ -4,6 +4,7 @@ import grail.compositeShapes.interfaces.BridgeSceneInterface;
 import grail.compositeShapes.interfaces.GorgeInterface;
 import grail.compositeShapes.interfaces.StandingAreaInterface;
 import tags301.Comp301Tags;
+import util.annotations.EditablePropertyNames;
 import util.annotations.PropertyNames;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
@@ -12,7 +13,9 @@ import util.annotations.Tags;
 @Tags(Comp301Tags.BRIDGE_SCENE)
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
 @PropertyNames({"Arthur", "Lancelot", "Robin", "Galahad", "Guard", "Gorge", "KnightArea", "GuardArea", "Occupied", "KnightTurn"})
+@EditablePropertyNames({})
 public class BridgeScene implements BridgeSceneInterface {
+    private static final String NO_SPEECH = "";
     private static final int ARTHUR_X = 100;
     private static final int ARTHUR_Y = 230;
     private static final int LANCELOT_X = 230;
@@ -36,7 +39,8 @@ public class BridgeScene implements BridgeSceneInterface {
     private static final int AREA_WIDTH = 70;
     private static final int AREA_HEIGHT = 90;
     private static final int PASSED_X = 925;
-    private static final int FAILED_X = GORGE_X + GORGE_WIDTH / 2;
+    private static final int CENTER_DIVISOR = 2;
+    private static final int FAILED_X = GORGE_X + GORGE_WIDTH / CENTER_DIVISOR;
     private static final int FAILED_Y = GORGE_Y + GORGE_HEIGHT - 30;
     private static final int GUARD_FAILED_X = FAILED_X;
     private static final int GUARD_FAILED_Y = FAILED_Y;
@@ -60,6 +64,7 @@ public class BridgeScene implements BridgeSceneInterface {
     private StandingAreaInterface knightArea;
     private StandingAreaInterface guardArea;
     private boolean knightTurn;
+    private AvatarInterface failureTarget;
 
     public BridgeScene() {
         this.arthur = new Avatar(ARTHUR_X, ARTHUR_Y, ARTHUR_SPEECH, ARTHUR_IMAGE);
@@ -71,6 +76,8 @@ public class BridgeScene implements BridgeSceneInterface {
         this.knightArea = new StandingArea(KNIGHT_AREA_X, KNIGHT_AREA_Y, AREA_WIDTH, AREA_HEIGHT);
         this.guardArea = new StandingArea(GUARD_AREA_X, GUARD_AREA_Y, AREA_WIDTH, AREA_HEIGHT);
         this.knightTurn = false;
+        this.failureTarget = null;
+        this.clearSpeech();
     }
 
     @Override
@@ -129,8 +136,10 @@ public class BridgeScene implements BridgeSceneInterface {
         if (!this.isKnight(avatar) || this.getOccupied()) {
             return;
         }
+        this.clearSpeech();
         this.moveTo(avatar, this.knightArea.getCenterX(), this.knightArea.getCenterY());
         this.knightTurn = false;
+        this.failureTarget = null;
     }
 
     @Override
@@ -139,10 +148,12 @@ public class BridgeScene implements BridgeSceneInterface {
         if (this.knightTurn) {
             AvatarInterface knight = this.getOccupyingKnight();
             if (knight != null) {
-                knight.getStringShape().setText(text);
+                this.sayAs(knight, text);
+                this.failureTarget = this.textAsksQuestion(text) ? this.guard : knight;
             }
         } else {
-            this.guard.getStringShape().setText(text);
+            this.sayAs(this.guard, text);
+            this.failureTarget = this.getOccupyingKnight();
         }
         this.knightTurn = !this.knightTurn;
     }
@@ -152,24 +163,31 @@ public class BridgeScene implements BridgeSceneInterface {
     public void passed() {
         AvatarInterface knight = this.getOccupyingKnight();
         if (knight != null && !this.knightTurn) {
+            this.clearSpeech();
             this.moveTo(knight, PASSED_X, this.knightArea.getCenterY());
             this.knightTurn = false;
+            this.failureTarget = null;
         }
     }
 
     @Override
     @Tags(Comp301Tags.FAILED)
     public void failed() {
-        AvatarInterface knight = this.getOccupyingKnight();
-        if (this.knightTurn) {
-            if (knight != null) {
-                this.moveTo(knight, FAILED_X, FAILED_Y);
-                this.knightTurn = false;
-            }
-        } else {
-            if (knight != null) {
-                this.moveTo(this.guard, GUARD_FAILED_X, GUARD_FAILED_Y);
-            }
+        AvatarInterface failedAvatar = this.failureTarget;
+        if (failedAvatar == null && this.knightTurn) {
+            failedAvatar = this.getOccupyingKnight();
+        }
+
+        if (failedAvatar == this.guard) {
+            this.clearSpeech();
+            this.moveTo(this.guard, GUARD_FAILED_X, GUARD_FAILED_Y);
+            this.knightTurn = false;
+            this.failureTarget = null;
+        } else if (failedAvatar != null) {
+            this.clearSpeech();
+            this.moveTo(failedAvatar, FAILED_X, FAILED_Y);
+            this.knightTurn = false;
+            this.failureTarget = null;
         }
     }
 
@@ -198,5 +216,22 @@ public class BridgeScene implements BridgeSceneInterface {
 
     private void moveTo(AvatarInterface avatar, int x, int y) {
         avatar.move(x - avatar.getX(), y - avatar.getY());
+    }
+
+    private void sayAs(AvatarInterface avatar, String text) {
+        this.clearSpeech();
+        avatar.getStringShape().setText(text);
+    }
+
+    private void clearSpeech() {
+        this.arthur.getStringShape().setText(NO_SPEECH);
+        this.lancelot.getStringShape().setText(NO_SPEECH);
+        this.robin.getStringShape().setText(NO_SPEECH);
+        this.galahad.getStringShape().setText(NO_SPEECH);
+        this.guard.getStringShape().setText(NO_SPEECH);
+    }
+
+    private boolean textAsksQuestion(String text) {
+        return text.trim().endsWith("?");
     }
 }
