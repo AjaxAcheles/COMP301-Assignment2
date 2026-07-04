@@ -25,24 +25,6 @@ public class Assignment2 {
         bridgeScene.getRobin().move(30, 0);
         ThreadSupport.sleep(PAUSE_TIME);
 
-        bridgeScene.getRobin().rotate(10);
-        ThreadSupport.sleep(PAUSE_TIME);
-
-        bridgeScene.getRobin().scale(1.1);
-        ThreadSupport.sleep(PAUSE_TIME);
-
-        bridgeScene.getGalahad().getBody().rotate(10);
-        ThreadSupport.sleep(PAUSE_TIME);
-
-        bridgeScene.getGalahad().getBody().scale(1.05);
-        ThreadSupport.sleep(PAUSE_TIME);
-
-        bridgeScene.getGalahad().getLegs().move(10, 0);
-        ThreadSupport.sleep(PAUSE_TIME);
-
-        bridgeScene.getGalahad().getArms().rotate(-10);
-        ThreadSupport.sleep(PAUSE_TIME);
-
         bridgeScene.approach(bridgeScene.getArthur());
         ThreadSupport.sleep(PAUSE_TIME);
 
