@@ -1,6 +1,5 @@
 package main;
 
-import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
 import grail.compositeShapes.interfaces.BridgeSceneInterface;
 import grail.views.classes.ConsoleSceneView;
@@ -13,8 +12,7 @@ public class Assignment2 {
 
     public static void main(String[] args) {
         BridgeSceneInterface bridgeScene = Factory.getBridgeScene();
-        OEFrame editor = ObjectEditor.edit(bridgeScene);
-        editor.setSize(EDITOR_WIDTH, EDITOR_HEIGHT);
+        ObjectEditor.edit(bridgeScene).setSize(EDITOR_WIDTH, EDITOR_HEIGHT);
         new ConsoleSceneView();
         runAnimation(bridgeScene);
     }

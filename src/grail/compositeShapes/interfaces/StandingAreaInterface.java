@@ -1,6 +1,7 @@
 package grail.compositeShapes.interfaces;
 
 import grail.simpleShapes.interfaces.LineInterface;
+import util.annotations.Visible;
 import util.annotations.EditablePropertyNames;
 import util.annotations.PropertyNames;
 import util.annotations.StructurePattern;
@@ -14,4 +15,9 @@ public interface StandingAreaInterface {
     LineInterface getRightLine();
     LineInterface getBottomLine();
     LineInterface getLeftLine();
+    @Visible(false)
+    int getCenterX();
+    @Visible(false)
+    int getCenterY();
+    boolean contains(AvatarInterface avatar);
 }

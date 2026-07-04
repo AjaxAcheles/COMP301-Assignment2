@@ -1,13 +1,11 @@
 package main;
 
-import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
 import grail.compositeShapes.interfaces.AngleInterface;
 import grail.compositeShapes.interfaces.AvatarInterface;
 import grail.compositeShapes.interfaces.BridgeSceneInterface;
 import grail.compositeShapes.classes.Angle;
 import grail.compositeShapes.classes.Avatar;
-import grail.compositeShapes.classes.BridgeScene;
 import grail.simpleShapes.classes.RotatingLine;
 import grail.simpleShapes.interfaces.LineInterface;
 import grail.simpleShapes.classes.Image;
@@ -26,6 +24,30 @@ public class Assignment1 {
     private static final int PAUSE_TIME_SLOW = 1000;
     
     private static final int IMAGE_MOVE_STEP = 5;
+    private static final int DEFAULT_ORIGIN_X = 0;
+    private static final int DEFAULT_ORIGIN_Y = 0;
+    private static final double DEFAULT_ANGLE_RADIANS = 0;
+    private static final int TEST_IMAGE_X = 100;
+    private static final int TEST_IMAGE_Y = 100;
+    private static final int TEST_IMAGE_WIDTH = 100;
+    private static final int TEST_IMAGE_HEIGHT = 100;
+    private static final int TEST_AVATAR_X = 200;
+    private static final int TEST_AVATAR_Y = 200;
+    private static final int TEST_ANGLE_X = 100;
+    private static final int TEST_ANGLE_Y = 100;
+    private static final int TEST_ANGLE_RADIUS = 50;
+    private static final int TEST_LEGS_X = 200;
+    private static final int TEST_LEGS_Y = 400;
+    private static final int TEST_LEGS_RADIUS = 100;
+    private static final String LINE_MODE = "Line";
+    private static final String ROTATING_LINE_MODE = "RotatingLine";
+    private static final String IMAGE_MODE = "Image";
+    private static final String AVATAR_MODE = "Avatar";
+    private static final String ANGLE_MODE = "Angle";
+    private static final String WALKING_LEGS_MODE = "WalkingLegs";
+    private static final String TEST_IMAGE_LABEL = "Test";
+    private static final String TEST_AVATAR_SPEECH = "Hello!";
+    private static final String ARTHUR_IMAGE_FILE = "images/arthur.jpg";
 
     private static final int ANIMATION_STEP = 1;
     private static final int ANIMATION_TARGET_X = 300;
@@ -37,6 +59,7 @@ public class Assignment1 {
     private static final double RIGHT_ANGLE_RADIANS = Math.PI / 2;
     private static final double HALF_CYCLE_RADIANS = Math.PI;
     private static final double RIGHT_ANGLE_DEGREES = 90.0;
+    private static final double SWING_SCALE_DENOMINATOR = 100.0;
 
     private static final int LINE_MODE_X = 100;
     private static final int LINE_MODE_Y = 100;
@@ -49,21 +72,19 @@ public class Assignment1 {
     private static final int AVATAR_MOVE_Y = 300;
     
     public static void main(String[] args) {
-        animateLine("Line");
-        // demonstrateBridgeScene();
+        animateLine(LINE_MODE);
     }
 
     public static void demonstrateBridgeScene() {
-        BridgeSceneInterface bridgeScene = new BridgeScene();
-        OEFrame editor = ObjectEditor.edit(bridgeScene);
-        editor.setSize(EDITOR_WIDTH, EDITOR_HEIGHT);
+        BridgeSceneInterface bridgeScene = Factory.getBridgeScene();
+        ObjectEditor.edit(bridgeScene).setSize(EDITOR_WIDTH, EDITOR_HEIGHT);
         ThreadSupport.sleep(PAUSE_TIME_LONG);
     }
     
     public static void animateLine(String mode) {
-        if (mode == "Line") {
+        if (LINE_MODE.equals(mode)) {
             LineInterface testLine = new RotatingLine(LINE_MODE_X, LINE_MODE_Y, LINE_MODE_RADIUS, LINE_MODE_ANGLE); 
-            OEFrame editor = ObjectEditor.edit(testLine);
+            ObjectEditor.edit(testLine);
             ThreadSupport.sleep(PAUSE_TIME_SHORT);
 
             testLine.rotate(LINE_ROTATE_90);
@@ -72,9 +93,9 @@ public class Assignment1 {
             testLine.rotate(LINE_ROTATE_MINUS_45);
         }
 
-        if (mode == "RotatingLine") {
-            LineInterface testLine = new RotatingLine(0, 0, 100, 0); 
-            OEFrame editor = ObjectEditor.edit(testLine);
+        if (ROTATING_LINE_MODE.equals(mode)) {
+            LineInterface testLine = new RotatingLine(DEFAULT_ORIGIN_X, DEFAULT_ORIGIN_Y, TEST_LEGS_RADIUS, DEFAULT_ANGLE_RADIANS); 
+            ObjectEditor.edit(testLine);
 
             int nextY = testLine.getY() + ANIMATION_STEP;
             int nextX = testLine.getX() + ANIMATION_STEP;
@@ -96,9 +117,10 @@ public class Assignment1 {
             }
         }
 
-        else if (mode == "Image") {
-            ImageInterface testImage = new Image(100, 100, 100, 100, "Test", "images/arthur.jpg");
-            OEFrame editor = ObjectEditor.edit(testImage);
+        else if (IMAGE_MODE.equals(mode)) {
+            ImageInterface testImage = new Image(TEST_IMAGE_X, TEST_IMAGE_Y, TEST_IMAGE_WIDTH, TEST_IMAGE_HEIGHT,
+                    TEST_IMAGE_LABEL, ARTHUR_IMAGE_FILE);
+            ObjectEditor.edit(testImage);
 
             while (true) {
                 testImage.setX(testImage.getX() + IMAGE_MOVE_STEP);
@@ -107,9 +129,9 @@ public class Assignment1 {
             }
         }
 
-        else if (mode == "Avatar") {
-            AvatarInterface testAvatar = new Avatar(200, 200, "Hello!", "images/arthur.jpg");
-            OEFrame editor = ObjectEditor.edit(testAvatar);
+        else if (AVATAR_MODE.equals(mode)) {
+            AvatarInterface testAvatar = new Avatar(TEST_AVATAR_X, TEST_AVATAR_Y, TEST_AVATAR_SPEECH, ARTHUR_IMAGE_FILE);
+            ObjectEditor.edit(testAvatar);
             ThreadSupport.sleep(PAUSE_TIME_MEDIUM);
             
             testAvatar.move(AVATAR_MOVE_X, AVATAR_MOVE_Y);
@@ -118,21 +140,21 @@ public class Assignment1 {
             testAvatar.rotate(RIGHT_ANGLE_DEGREES);
         }
 
-        else if (mode == "Angle") {
-            AngleInterface testAngle = new Angle(100, 100, 50, RIGHT_ANGLE_RADIANS, RIGHT_ANGLE_RADIANS);
-            OEFrame editor = ObjectEditor.edit(testAngle);
+        else if (ANGLE_MODE.equals(mode)) {
+            AngleInterface testAngle = new Angle(TEST_ANGLE_X, TEST_ANGLE_Y, TEST_ANGLE_RADIUS,
+                    RIGHT_ANGLE_RADIANS, RIGHT_ANGLE_RADIANS);
+            ObjectEditor.edit(testAngle);
         }
 
-        else if (mode == "WalkingLegs") {
-            AngleInterface testLegs = new Angle(200, 400, 100, RIGHT_ANGLE_RADIANS, RIGHT_ANGLE_RADIANS);
+        else if (WALKING_LEGS_MODE.equals(mode)) {
+            AngleInterface testLegs = new Angle(TEST_LEGS_X, TEST_LEGS_Y, TEST_LEGS_RADIUS,
+                    RIGHT_ANGLE_RADIANS, RIGHT_ANGLE_RADIANS);
 
-            OEFrame editor = ObjectEditor.edit(testLegs);
+            ObjectEditor.edit(testLegs);
 
-            // One full leg-swing revolution spread over the walk cycle.
             double omegaRadians = FULL_CIRCLE_RADIANS / WALKING_CYCLE_FRAMES;
-            // Preserve the original (sub-degree) swing amplitude, now expressed in radians.
             double swingAmplitudeRadians =
-                    ANIMATION_STEP / (100.0 * omegaRadians) * RADIANS_PER_DEGREE * RADIANS_PER_DEGREE;
+                    ANIMATION_STEP / (SWING_SCALE_DENOMINATOR * omegaRadians) * RADIANS_PER_DEGREE * RADIANS_PER_DEGREE;
 
             int frame = 0;
             while (true) {

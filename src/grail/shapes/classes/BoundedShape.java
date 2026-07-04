@@ -3,13 +3,16 @@ package grail.shapes.classes;
 import java.beans.PropertyChangeEvent;
 
 import grail.shapes.interfaces.BoundedShapeInterface;
+import tags301.Comp301Tags;
 import util.annotations.EditablePropertyNames;
 import util.annotations.PropertyNames;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
 
+@Tags(Comp301Tags.BOUNDED_SHAPE)
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
-@PropertyNames({"X", "Y", "Width", "Height"})
+@PropertyNames({"X", "Y", "Width", "Height", "PropertyChangeListeners"})
 @EditablePropertyNames({"X", "Y", "Width", "Height"})
 public class BoundedShape extends Locatable implements BoundedShapeInterface {
     private int width;

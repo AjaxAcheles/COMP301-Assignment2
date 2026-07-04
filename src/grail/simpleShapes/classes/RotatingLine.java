@@ -85,7 +85,7 @@ public class RotatingLine extends BoundedShape implements LineInterface {
         double oldRadius = this.getRadius();
         int oldWidth = this.getWidth();
         int oldHeight = this.getHeight();
-        ((PolarPoint) this.endPoint).setRadius(newRadius);
+        this.endPoint.setRadius(newRadius);
         this.notifyAllListeners(new PropertyChangeEvent(this, "Radius", oldRadius, newRadius));
         this.notifyAllListeners(new PropertyChangeEvent(this, "Width", oldWidth, this.getWidth()));
         this.notifyAllListeners(new PropertyChangeEvent(this, "Height", oldHeight, this.getHeight()));
@@ -102,7 +102,7 @@ public class RotatingLine extends BoundedShape implements LineInterface {
         int oldWidth = this.getWidth();
         int oldHeight = this.getHeight();
         this.angleRadians = newAngleRadians;
-        ((PolarPoint) this.endPoint).setAngle(newAngleRadians);
+        this.endPoint.setAngle(newAngleRadians);
         this.notifyAllListeners(new PropertyChangeEvent(this, "Angle", oldAngle, newAngleRadians));
         this.notifyAllListeners(new PropertyChangeEvent(this, "Width", oldWidth, this.getWidth()));
         this.notifyAllListeners(new PropertyChangeEvent(this, "Height", oldHeight, this.getHeight()));
@@ -110,8 +110,6 @@ public class RotatingLine extends BoundedShape implements LineInterface {
 
     @Override
     public void rotate(int units) {
-        // The grader's structure check requires rotate(int) and supplies the rotation in
-        // degrees, so convert to the radian representation the rest of the class uses.
         this.setAngle(this.angleRadians + Math.toRadians(units));
     }
 
@@ -119,7 +117,6 @@ public class RotatingLine extends BoundedShape implements LineInterface {
     public void move(int moveX, int moveY) {
         this.setX(this.getX() + moveX);
         this.setY(this.getY() + moveY);
-        // The end point is relative to the line start, so it moves with the inherited X/Y.
     }
     
     @Override

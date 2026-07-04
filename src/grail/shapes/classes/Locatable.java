@@ -2,18 +2,20 @@ package grail.shapes.classes;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 import java.util.List;
 
 import grail.shapes.interfaces.LocatableInterface;
+import tags301.Comp301Tags;
 import util.annotations.EditablePropertyNames;
 import util.annotations.PropertyNames;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
 import util.annotations.Visible;
 
+@Tags(Comp301Tags.LOCATABLE)
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
-@PropertyNames({"X", "Y"})
+@PropertyNames({"X", "Y", "PropertyChangeListeners"})
 @EditablePropertyNames({"X", "Y"})
 public class Locatable implements LocatableInterface {
     private int x;
@@ -23,7 +25,7 @@ public class Locatable implements LocatableInterface {
     public Locatable(int x, int y) {
         this.x = x;
         this.y = y;
-        this.propertyChangeListeners = new ArrayList<PropertyChangeListener>();
+        this.propertyChangeListeners = new java.util.ArrayList<PropertyChangeListener>();
     }
 
     @Override
@@ -62,8 +64,11 @@ public class Locatable implements LocatableInterface {
     }
 
     protected void notifyAllListeners(PropertyChangeEvent event) {
-        for (PropertyChangeListener listener : this.propertyChangeListeners) {
+        int listenerIndex = 0;
+        while (listenerIndex < this.propertyChangeListeners.size()) {
+            PropertyChangeListener listener = this.propertyChangeListeners.get(listenerIndex);
             listener.propertyChange(event);
+            listenerIndex++;
         }
     }
 }

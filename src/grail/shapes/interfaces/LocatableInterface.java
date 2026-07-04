@@ -3,15 +3,18 @@ package grail.shapes.interfaces;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
-import util.annotations.Visible;
+import tags301.Comp301Tags;
 import util.annotations.EditablePropertyNames;
 import util.annotations.PropertyNames;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+import util.annotations.Visible;
 import util.models.PropertyListenerRegisterer;
 
+@Tags(Comp301Tags.LOCATABLE)
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
-@PropertyNames({"X", "Y"})
+@PropertyNames({"X", "Y", "PropertyChangeListeners"})
 @EditablePropertyNames({"X", "Y"})
 public interface LocatableInterface extends PropertyListenerRegisterer {
     int getX();

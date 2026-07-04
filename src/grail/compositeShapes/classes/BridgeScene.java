@@ -55,8 +55,8 @@ public class BridgeScene implements BridgeSceneInterface {
     private AvatarInterface galahad;
     private AvatarInterface guard;
     private GorgeInterface gorge;
-    private StandingArea knightArea;
-    private StandingArea guardArea;
+    private StandingAreaInterface knightArea;
+    private StandingAreaInterface guardArea;
     private boolean knightTurn;
 
     public BridgeScene() {

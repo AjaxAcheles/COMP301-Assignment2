@@ -67,9 +67,7 @@ public class ConsoleSceneView implements ConsoleSceneViewInterface {
         this.registerAtomicShape(end);
     }
 
-    private void registerAtomicShape(Object shape) {
-        if (shape instanceof PropertyListenerRegisterer) {
-            ((PropertyListenerRegisterer) shape).addPropertyChangeListener(this);
-        }
+    private void registerAtomicShape(PropertyListenerRegisterer shape) {
+        shape.addPropertyChangeListener(this);
     }
 }

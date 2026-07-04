@@ -8,11 +8,15 @@ import util.annotations.EditablePropertyNames;
 import util.annotations.PropertyNames;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
+import util.annotations.Visible;
 
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
 @PropertyNames({"TopLine", "RightLine", "BottomLine", "LeftLine"})
 @EditablePropertyNames({})
 public class StandingArea implements StandingAreaInterface {
+    private static final double ZERO_ANGLE_RADIANS = 0;
+    private static final double DOWN_DIRECTION_RADIANS = Math.PI / 2;
+
     private int x;
     private int y;
     private int width;
@@ -27,10 +31,10 @@ public class StandingArea implements StandingAreaInterface {
         this.y = y;
         this.width = width;
         this.height = height;
-        this.topLine = new RotatingLine(x, y, width, 0);
-        this.rightLine = new RotatingLine(x + width, y, height, Math.PI / 2);
-        this.bottomLine = new RotatingLine(x, y + height, width, 0);
-        this.leftLine = new RotatingLine(x, y, height, Math.PI / 2);
+        this.topLine = new RotatingLine(x, y, width, ZERO_ANGLE_RADIANS);
+        this.rightLine = new RotatingLine(x + width, y, height, DOWN_DIRECTION_RADIANS);
+        this.bottomLine = new RotatingLine(x, y + height, width, ZERO_ANGLE_RADIANS);
+        this.leftLine = new RotatingLine(x, y, height, DOWN_DIRECTION_RADIANS);
     }
 
     @Override
@@ -53,14 +57,19 @@ public class StandingArea implements StandingAreaInterface {
         return this.leftLine;
     }
 
+    @Override
+    @Visible(false)
     public int getCenterX() {
         return this.x + this.width / 2;
     }
 
+    @Override
+    @Visible(false)
     public int getCenterY() {
         return this.y + this.height / 2;
     }
 
+    @Override
     public boolean contains(AvatarInterface avatar) {
         int avatarX = avatar.getX();
         int avatarY = avatar.getY();

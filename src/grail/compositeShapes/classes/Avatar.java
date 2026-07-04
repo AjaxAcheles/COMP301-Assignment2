@@ -42,25 +42,19 @@ public class Avatar implements AvatarInterface {
         this.x = x;
         this.y = y;
 
-        // Legs spawn at (x, y) pointing downward
         this.legs = new Angle(x, y, LEG_RADIUS, LEG_SPLIT_ANGLE_RADIANS, DOWN_DIRECTION_RADIANS);
 
-        // Body spawns at (x, y) and points upward (opposite of down direction)
         double bodyAngleRadians = -DOWN_DIRECTION_RADIANS;
         this.body = new RotatingLine(x, y, BODY_LENGTH, bodyAngleRadians);
 
-        // Neck position is body's endpoint (absolute = start + offset)
         int neckX = this.body.getX() + this.body.getEnd().getX();
         int neckY = this.body.getY() + this.body.getEnd().getY();
 
-        // Arms attach at the neck, dangling downward
         this.arms = new Angle(neckX, neckY, ARM_RADIUS, ARM_SPLIT_ANGLE_RADIANS, DOWN_DIRECTION_RADIANS);
 
-        // Head sits directly above the body endpoint
         this.head = new Image(neckX - HEAD_WIDTH / 2, neckY - HEAD_HEIGHT,
                               HEAD_WIDTH, HEAD_HEIGHT, "", headImage);
 
-        // Speech bubble positioned above the head
         this.speechBubble = new Text(speech, this.x + HEAD_WIDTH, neckY - HEAD_HEIGHT);
     }
 
@@ -116,16 +110,13 @@ public class Avatar implements AvatarInterface {
 
     @Override
     public void scale(double scaleMultiplier) {
-        // Scale the body which represents the torso length
         this.body.scale(scaleMultiplier);
 
-        // Scale legs and arms by updating their line radii
         this.legs.getLeftLine().setRadius(this.legs.getLeftLine().getRadius() * scaleMultiplier);
         this.legs.getRightLine().setRadius(this.legs.getRightLine().getRadius() * scaleMultiplier);
         this.arms.getLeftLine().setRadius(this.arms.getLeftLine().getRadius() * scaleMultiplier);
         this.arms.getRightLine().setRadius(this.arms.getRightLine().getRadius() * scaleMultiplier);
 
-        // Scale head dimensions
         this.head.setWidth((int) Math.round(this.head.getWidth() * scaleMultiplier));
         this.head.setHeight((int) Math.round(this.head.getHeight() * scaleMultiplier));
     }
@@ -151,24 +142,20 @@ public class Avatar implements AvatarInterface {
         this.legs.rotate(rotationUnits);
         this.body.rotate(rotationUnits);
 
-        // Neck remains the body endpoint after body rotation
         int neckX = this.body.getX() + this.body.getEnd().getX();
         int neckY = this.body.getY() + this.body.getEnd().getY();
 
-        // Move arm pivot to neck before rotating arms
         int armMoveX = neckX - this.arms.getLeftLine().getX();
         int armMoveY = neckY - this.arms.getLeftLine().getY();
         this.arms.move(armMoveX, armMoveY);
         this.arms.rotate(rotationUnits);
 
-        // Position head along the current body direction so it turns with the avatar
         double bodyAngleRadians = this.body.getAngle();
         int headCenterX = neckX + (int) Math.round((this.head.getHeight() / 2.0) * Math.cos(bodyAngleRadians));
         int headCenterY = neckY + (int) Math.round((this.head.getHeight() / 2.0) * Math.sin(bodyAngleRadians));
         this.head.setX(headCenterX - this.head.getWidth() / 2);
         this.head.setY(headCenterY - this.head.getHeight() / 2);
 
-        // Keep speech bubble tied to the head region
         this.speechBubble.setX(this.head.getX() + this.head.getWidth());
         this.speechBubble.setY(this.head.getY());
     }

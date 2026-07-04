@@ -2,12 +2,20 @@ package grail.atomicShapes.classes;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 import java.util.List;
 
 import grail.atomicShapes.interfaces.PointInterface;
+import util.annotations.EditablePropertyNames;
+import util.annotations.Explanation;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
 import util.annotations.Visible;
 
+@StructurePattern(StructurePatternNames.POINT_PATTERN)
+@Explanation("Location in Java coordinate System.")
+@PropertyNames({"X", "Y", "Angle", "Radius", "PropertyChangeListeners"})
+@EditablePropertyNames({"X", "Y", "Angle", "Radius"})
 public class PolarPoint implements PointInterface {
 	private double radius;
 	private double angleRadians;
@@ -16,13 +24,13 @@ public class PolarPoint implements PointInterface {
 	public PolarPoint(double theRadius, double theAngleRadians) {
 		radius = theRadius;
 		angleRadians = theAngleRadians;
-		propertyChangeListeners = new ArrayList<PropertyChangeListener>();
+		propertyChangeListeners = new java.util.ArrayList<PropertyChangeListener>();
 	}
 
 	public PolarPoint(int theX, int theY) {
 		radius = Math.sqrt(theX * theX + theY * theY);
 		angleRadians = Math.atan2(theY, theX);
-		propertyChangeListeners = new ArrayList<PropertyChangeListener>();
+		propertyChangeListeners = new java.util.ArrayList<PropertyChangeListener>();
 	}
 
 	@Override
@@ -89,8 +97,11 @@ public class PolarPoint implements PointInterface {
 	}
 
 	private void notifyAllListeners(PropertyChangeEvent event) {
-		for (PropertyChangeListener listener : this.propertyChangeListeners) {
+		int listenerIndex = 0;
+		while (listenerIndex < this.propertyChangeListeners.size()) {
+			PropertyChangeListener listener = this.propertyChangeListeners.get(listenerIndex);
 			listener.propertyChange(event);
+			listenerIndex++;
 		}
 	}
 }

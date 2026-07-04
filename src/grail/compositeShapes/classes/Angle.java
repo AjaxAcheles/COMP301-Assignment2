@@ -36,7 +36,6 @@ public class Angle implements AngleInterface {
         this.splitAngleRadians = splitAngleRadians;
         this.downDirectionRadians = downDirectionRadians;
 
-        // downDirection determines what is "down" and the left and right lines are positioned splitAngle/2 to the left and right of the downDirection
         this.leftLine = new RotatingLine(x, y, radius, downDirectionRadians - splitAngleRadians / 2);
         this.rightLine = new RotatingLine(x, y, radius, downDirectionRadians + splitAngleRadians / 2);
     }
