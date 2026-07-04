@@ -130,6 +130,7 @@ public class BridgeScene implements BridgeSceneInterface {
             return;
         }
         this.moveTo(avatar, this.knightArea.getCenterX(), this.knightArea.getCenterY());
+        this.knightTurn = false;
     }
 
     @Override
@@ -150,7 +151,7 @@ public class BridgeScene implements BridgeSceneInterface {
     @Tags(Comp301Tags.PASSED)
     public void passed() {
         AvatarInterface knight = this.getOccupyingKnight();
-        if (knight != null) {
+        if (knight != null && !this.knightTurn) {
             this.moveTo(knight, PASSED_X, this.knightArea.getCenterY());
             this.knightTurn = false;
         }
@@ -159,14 +160,16 @@ public class BridgeScene implements BridgeSceneInterface {
     @Override
     @Tags(Comp301Tags.FAILED)
     public void failed() {
+        AvatarInterface knight = this.getOccupyingKnight();
         if (this.knightTurn) {
-            AvatarInterface knight = this.getOccupyingKnight();
             if (knight != null) {
                 this.moveTo(knight, FAILED_X, FAILED_Y);
                 this.knightTurn = false;
             }
         } else {
-            this.moveTo(this.guard, GUARD_FAILED_X, GUARD_FAILED_Y);
+            if (knight != null) {
+                this.moveTo(this.guard, GUARD_FAILED_X, GUARD_FAILED_Y);
+            }
         }
     }
 

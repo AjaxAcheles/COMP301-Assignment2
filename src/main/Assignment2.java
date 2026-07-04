@@ -13,12 +13,12 @@ public class Assignment2 {
     private static final int LEGACY_MOVE_X = 70;
     private static final int LEGACY_MOVE_Y = 0;
     private static final int LEGACY_ROTATION_DEGREES = 20;
-    private static final String ARTHUR_GUARD_GREETING = "Halt! Who goes there?";
-    private static final String ARTHUR_REPLY = "It is I, King Arthur!";
+    private static final String NAME_QUESTION = "What is your name?";
+    private static final String ARTHUR_NAME = "It is I, King Arthur!";
     private static final String QUEST_QUESTION = "What is your quest?";
+    private static final String ARTHUR_QUEST = "To seek the Holy Grail.";
     private static final String LANCELOT_COLOR_QUESTION = "Halt! What is your favorite color?";
-    private static final String ASSYRIA_QUESTION = "What is the capital of Assyria?";
-    private static final String ROBIN_REPLY = "I don't know that!";
+    private static final String ROBIN_NAME = "Sir Robin of Camelot.";
     private static final String SWALLOW_QUESTION = "What is the airspeed velocity of an unladen swallow?";
     private static final String SWALLOW_REPLY = "African or European swallow?";
     private static ConsoleSceneViewInterface consoleSceneView;
@@ -50,13 +50,16 @@ public class Assignment2 {
         bridgeScene.approach(bridgeScene.getArthur());
         ThreadSupport.sleep(PAUSE_TIME);
 
-        bridgeScene.say(ARTHUR_GUARD_GREETING);
+        bridgeScene.say(NAME_QUESTION);
         ThreadSupport.sleep(PAUSE_TIME);
 
-        bridgeScene.say(ARTHUR_REPLY);
+        bridgeScene.say(ARTHUR_NAME);
         ThreadSupport.sleep(PAUSE_TIME);
 
         bridgeScene.say(QUEST_QUESTION);
+        ThreadSupport.sleep(PAUSE_TIME);
+
+        bridgeScene.say(ARTHUR_QUEST);
         ThreadSupport.sleep(PAUSE_TIME);
 
         bridgeScene.passed();
@@ -78,10 +81,10 @@ public class Assignment2 {
         bridgeScene.approach(bridgeScene.getRobin());
         ThreadSupport.sleep(PAUSE_TIME);
 
-        bridgeScene.say(ASSYRIA_QUESTION);
+        bridgeScene.say(NAME_QUESTION);
         ThreadSupport.sleep(PAUSE_TIME);
 
-        bridgeScene.say(ROBIN_REPLY);
+        bridgeScene.say(ROBIN_NAME);
         ThreadSupport.sleep(PAUSE_TIME);
 
         bridgeScene.say(SWALLOW_QUESTION);
