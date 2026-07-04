@@ -1,68 +1,24 @@
 package grail.simpleShapes.classes;
 
+import java.beans.PropertyChangeEvent;
+
 import grail.simpleShapes.interfaces.ImageInterface;
+import grail.shapes.classes.BoundedShape;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
 
 @StructurePattern(StructurePatternNames.IMAGE_PATTERN)
-public class Image implements ImageInterface {
+public class Image extends BoundedShape implements ImageInterface {
     
-    private int x;
-    private int y;
-    private int width;
-    private int height;
     private String text;
     private String imageFileName;
     
     public Image(int x, int y, int width, int height, String text, String imageFileName) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
+        super(x, y, width, height);
         this.text = text;
         this.imageFileName = imageFileName;
     }
-    
-    @Override
-    public int getX() {
-        return x;
-    }
-    
-    @Override
-    public void setX(int newX) {
-        x = newX;
-    }
-    
-    @Override
-    public int getY() {
-        return y;
-    }
-    
-    @Override
-    public void setY(int newY) {
-        y = newY;
-    }
-    
-    @Override
-    public int getWidth() {
-        return width;
-    }
-    
-    @Override
-    public void setWidth(int newVal) {
-        width = newVal;
-    }
-    
-    @Override
-    public int getHeight() {
-        return height;
-    }
-    
-    @Override
-    public void setHeight(int newVal) {
-        height = newVal;
-    }
-    
+
     @Override
     public String getText() {
         return text;
@@ -70,7 +26,9 @@ public class Image implements ImageInterface {
     
     @Override
     public void setText(String newVal) {
+        String oldText = this.text;
         this.text = newVal;
+        this.notifyAllListeners(new PropertyChangeEvent(this, "Text", oldText, newVal));
     }
     
     @Override
@@ -80,6 +38,8 @@ public class Image implements ImageInterface {
     
     @Override
     public void setImageFileName(String newVal) {
+        String oldImageFileName = this.imageFileName;
         this.imageFileName = newVal;
+        this.notifyAllListeners(new PropertyChangeEvent(this, "ImageFileName", oldImageFileName, newVal));
     }
 }

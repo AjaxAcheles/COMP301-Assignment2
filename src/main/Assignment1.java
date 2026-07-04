@@ -13,17 +13,6 @@ import grail.simpleShapes.interfaces.LineInterface;
 import grail.simpleShapes.classes.Image;
 import grail.simpleShapes.interfaces.ImageInterface;
 import util.misc.ThreadSupport;
-import bus.uigen.ObjectEditor;
-import grail.compositeShapes.classes.Angle;
-import grail.compositeShapes.classes.Avatar;
-import grail.compositeShapes.classes.BridgeScene;
-import grail.compositeShapes.interfaces.AngleInterface;
-import grail.compositeShapes.interfaces.AvatarInterface;
-import grail.compositeShapes.interfaces.BridgeSceneInterface;
-import grail.simpleShapes.classes.Image;
-import grail.simpleShapes.classes.RotatingLine;
-import grail.simpleShapes.interfaces.ImageInterface;
-import grail.simpleShapes.interfaces.LineInterface;
 
 public class Assignment1 {
     
@@ -75,15 +64,12 @@ public class Assignment1 {
         if (mode == "Line") {
             LineInterface testLine = new RotatingLine(LINE_MODE_X, LINE_MODE_Y, LINE_MODE_RADIUS, LINE_MODE_ANGLE); 
             OEFrame editor = ObjectEditor.edit(testLine);
-            editor.refresh();
             ThreadSupport.sleep(PAUSE_TIME_SHORT);
 
             testLine.rotate(LINE_ROTATE_90);
-            editor.refresh();
             ThreadSupport.sleep(PAUSE_TIME_SHORT);
 
             testLine.rotate(LINE_ROTATE_MINUS_45);
-            editor.refresh();
         }
 
         if (mode == "RotatingLine") {
@@ -96,7 +82,6 @@ public class Assignment1 {
                 testLine.setX(nextX);
                 testLine.setY(nextY);
                 testLine.rotate(ANIMATION_STEP);
-                editor.refresh();
                 ThreadSupport.sleep(PAUSE_TIME_ANIMATION);
                 nextX = testLine.getX() + ANIMATION_STEP;
                 nextY = testLine.getY() + ANIMATION_STEP;
@@ -104,12 +89,10 @@ public class Assignment1 {
     
             testLine.setX(ANIMATION_TARGET_X);
             testLine.setY(ANIMATION_TARGET_Y);
-            editor.refresh();
     
             while (true) {
                 testLine.rotate(ANIMATION_STEP);
                 ThreadSupport.sleep(PAUSE_TIME_ANIMATION);
-                editor.refresh();
             }
         }
 
@@ -121,7 +104,6 @@ public class Assignment1 {
                 testImage.setX(testImage.getX() + IMAGE_MOVE_STEP);
                 testImage.setY(testImage.getY() + IMAGE_MOVE_STEP);
                 ThreadSupport.sleep(PAUSE_TIME_SLOW);
-                editor.refresh();
             }
         }
 
@@ -131,17 +113,14 @@ public class Assignment1 {
             ThreadSupport.sleep(PAUSE_TIME_MEDIUM);
             
             testAvatar.move(AVATAR_MOVE_X, AVATAR_MOVE_Y);
-            editor.refresh();
             ThreadSupport.sleep(PAUSE_TIME_MEDIUM);
             
             testAvatar.rotate(RIGHT_ANGLE_DEGREES);
-            editor.refresh();
         }
 
         else if (mode == "Angle") {
             AngleInterface testAngle = new Angle(100, 100, 50, RIGHT_ANGLE_RADIANS, RIGHT_ANGLE_RADIANS);
             OEFrame editor = ObjectEditor.edit(testAngle);
-            editor.refresh();
         }
 
         else if (mode == "WalkingLegs") {
@@ -167,7 +146,6 @@ public class Assignment1 {
                 testLegs.getLeftLine().setAngle(leftAngleRadians);
                 testLegs.getRightLine().setAngle(rightAngleRadians);
 
-                editor.refresh();
                 ThreadSupport.sleep(PAUSE_TIME_ANIMATION);
                 frame++;
             }

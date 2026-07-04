@@ -1,40 +1,20 @@
 package grail.atomicShapes.classes;
 
+import java.beans.PropertyChangeEvent;
+
 import grail.atomicShapes.interfaces.TextInterface;
+import grail.shapes.classes.Locatable;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
 
 @StructurePattern(StructurePatternNames.STRING_PATTERN)
-public class Text implements TextInterface {
+public class Text extends Locatable implements TextInterface {
     
     private String text;
-    private int x;
-    private int y;
 
     public Text(String initText, int initX, int initY) {
+        super(initX, initY);
         this.text = initText;
-        this.x = initX;
-        this.y = initY;
-    }
-    
-    @Override
-    public int getX() {
-        return x;
-    }
-    
-    @Override
-    public void setX(int newX) {
-        this.x = newX;
-    }
-    
-    @Override
-    public int getY() {
-        return y;
-    }
-    
-    @Override
-    public void setY(int newY) {
-        this.y = newY;
     }
     
     @Override
@@ -44,6 +24,8 @@ public class Text implements TextInterface {
     
     @Override
     public void setText(String newVal) {
+        String oldText = this.text;
         this.text = newVal;
+        this.notifyAllListeners(new PropertyChangeEvent(this, "Text", oldText, newVal));
     }
 }
