@@ -3,47 +3,94 @@ package main;
 import bus.uigen.ObjectEditor;
 import grail.compositeShapes.interfaces.BridgeSceneInterface;
 import grail.views.classes.ConsoleSceneView;
+import grail.views.interfaces.ConsoleSceneViewInterface;
 import util.misc.ThreadSupport;
 
 public class Assignment2 {
     private static final int EDITOR_WIDTH = 1050;
     private static final int EDITOR_HEIGHT = 550;
-    private static final int PAUSE_TIME = 1200;
+    private static final int PAUSE_TIME = 1800;
+    private static final int LEGACY_MOVE_X = 70;
+    private static final int LEGACY_MOVE_Y = 0;
+    private static final int LEGACY_ROTATION_DEGREES = 20;
+    private static final String ARTHUR_GUARD_GREETING = "Halt! Who goes there?";
+    private static final String ARTHUR_REPLY = "It is I, King Arthur!";
+    private static final String QUEST_QUESTION = "What is your quest?";
+    private static final String LANCELOT_COLOR_QUESTION = "Halt! What is your favorite color?";
+    private static final String ASSYRIA_QUESTION = "What is the capital of Assyria?";
+    private static final String ROBIN_REPLY = "I don't know that!";
+    private static final String SWALLOW_QUESTION = "What is the airspeed velocity of an unladen swallow?";
+    private static final String SWALLOW_REPLY = "African or European swallow?";
+    private static ConsoleSceneViewInterface consoleSceneView;
 
     public static void main(String[] args) {
         BridgeSceneInterface bridgeScene = Factory.getBridgeScene();
         ObjectEditor.edit(bridgeScene).setSize(EDITOR_WIDTH, EDITOR_HEIGHT);
-        new ConsoleSceneView();
+        consoleSceneView = new ConsoleSceneView();
         runAnimation(bridgeScene);
     }
 
     private static void runAnimation(BridgeSceneInterface bridgeScene) {
         ThreadSupport.sleep(PAUSE_TIME);
+        runLegacyAnimation(bridgeScene);
+        runArthurPasses(bridgeScene);
+        runLancelotFails(bridgeScene);
+        runGuardFails(bridgeScene);
+    }
 
-        bridgeScene.getRobin().move(30, 0);
+    private static void runLegacyAnimation(BridgeSceneInterface bridgeScene) {
+        bridgeScene.getGalahad().move(LEGACY_MOVE_X, LEGACY_MOVE_Y);
         ThreadSupport.sleep(PAUSE_TIME);
 
+        bridgeScene.getGalahad().getArms().rotate(LEGACY_ROTATION_DEGREES);
+        ThreadSupport.sleep(PAUSE_TIME);
+    }
+
+    private static void runArthurPasses(BridgeSceneInterface bridgeScene) {
         bridgeScene.approach(bridgeScene.getArthur());
         ThreadSupport.sleep(PAUSE_TIME);
 
-        bridgeScene.say("Stop. Who would cross the bridge of death?");
+        bridgeScene.say(ARTHUR_GUARD_GREETING);
         ThreadSupport.sleep(PAUSE_TIME);
 
-        bridgeScene.say("It is I, Arthur, king of the Britons.");
+        bridgeScene.say(ARTHUR_REPLY);
+        ThreadSupport.sleep(PAUSE_TIME);
+
+        bridgeScene.say(QUEST_QUESTION);
         ThreadSupport.sleep(PAUSE_TIME);
 
         bridgeScene.passed();
         ThreadSupport.sleep(PAUSE_TIME);
+    }
 
+    private static void runLancelotFails(BridgeSceneInterface bridgeScene) {
         bridgeScene.approach(bridgeScene.getLancelot());
         ThreadSupport.sleep(PAUSE_TIME);
 
-        bridgeScene.say("What is your quest?");
-        ThreadSupport.sleep(PAUSE_TIME);
-
-        bridgeScene.say("To seek the Holy Grail.");
+        bridgeScene.say(LANCELOT_COLOR_QUESTION);
         ThreadSupport.sleep(PAUSE_TIME);
 
         bridgeScene.failed();
+        ThreadSupport.sleep(PAUSE_TIME);
+    }
+
+    private static void runGuardFails(BridgeSceneInterface bridgeScene) {
+        bridgeScene.approach(bridgeScene.getRobin());
+        ThreadSupport.sleep(PAUSE_TIME);
+
+        bridgeScene.say(ASSYRIA_QUESTION);
+        ThreadSupport.sleep(PAUSE_TIME);
+
+        bridgeScene.say(ROBIN_REPLY);
+        ThreadSupport.sleep(PAUSE_TIME);
+
+        bridgeScene.say(SWALLOW_QUESTION);
+        ThreadSupport.sleep(PAUSE_TIME);
+
+        bridgeScene.say(SWALLOW_REPLY);
+        ThreadSupport.sleep(PAUSE_TIME);
+
+        bridgeScene.failed();
+        ThreadSupport.sleep(PAUSE_TIME);
     }
 }

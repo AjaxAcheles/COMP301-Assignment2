@@ -38,6 +38,8 @@ public class BridgeScene implements BridgeSceneInterface {
     private static final int PASSED_X = 925;
     private static final int FAILED_X = GORGE_X + GORGE_WIDTH / 2;
     private static final int FAILED_Y = GORGE_Y + GORGE_HEIGHT - 30;
+    private static final int GUARD_FAILED_X = FAILED_X;
+    private static final int GUARD_FAILED_Y = FAILED_Y;
     private static final String ARTHUR_SPEECH = "I am Arthur";
     private static final String ARTHUR_IMAGE = "images/arthur.jpg";
     private static final String LANCELOT_SPEECH = "I am Lancelot";
@@ -150,15 +152,21 @@ public class BridgeScene implements BridgeSceneInterface {
         AvatarInterface knight = this.getOccupyingKnight();
         if (knight != null) {
             this.moveTo(knight, PASSED_X, this.knightArea.getCenterY());
+            this.knightTurn = false;
         }
     }
 
     @Override
     @Tags(Comp301Tags.FAILED)
     public void failed() {
-        AvatarInterface knight = this.getOccupyingKnight();
-        if (knight != null) {
-            this.moveTo(knight, FAILED_X, FAILED_Y);
+        if (this.knightTurn) {
+            AvatarInterface knight = this.getOccupyingKnight();
+            if (knight != null) {
+                this.moveTo(knight, FAILED_X, FAILED_Y);
+                this.knightTurn = false;
+            }
+        } else {
+            this.moveTo(this.guard, GUARD_FAILED_X, GUARD_FAILED_Y);
         }
     }
 
