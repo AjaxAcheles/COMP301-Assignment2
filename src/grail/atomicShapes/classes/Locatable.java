@@ -19,37 +19,39 @@ import util.models.AListenableVector;
 @PropertyNames({"X", "Y", "PropertyChangeListeners"})
 @EditablePropertyNames({"X", "Y"})
 public class Locatable implements LocatableInterface {
-    private int x;
-    private int y;
-    private List<PropertyChangeListener> propertyChangeListeners;
+    private int xCoordinate;
+    private int yCoordinate;
+    private final List<PropertyChangeListener> propertyChangeListeners;
 
     public Locatable(int initialX, int initialY) {
-        this.x = initialX;
-        this.y = initialY;
+        this.xCoordinate = initialX;
+        this.yCoordinate = initialY;
         this.propertyChangeListeners = new AListenableVector<PropertyChangeListener>();
     }
 
     @Override
     public int getX() {
-        return this.x;
+        return this.xCoordinate;
     }
 
     @Override
     public void setX(int newX) {
-        int oldX = this.x;
-        this.x = newX;
+        int oldX = this.xCoordinate;
+        this.xCoordinate = newX;
+        this.locationChanged(newX - oldX, 0);
         this.notifyAllListeners(new PropertyChangeEvent(this, "X", oldX, newX));
     }
 
     @Override
     public int getY() {
-        return this.y;
+        return this.yCoordinate;
     }
 
     @Override
     public void setY(int newY) {
-        int oldY = this.y;
-        this.y = newY;
+        int oldY = this.yCoordinate;
+        this.yCoordinate = newY;
+        this.locationChanged(0, newY - oldY);
         this.notifyAllListeners(new PropertyChangeEvent(this, "Y", oldY, newY));
     }
 
@@ -71,5 +73,8 @@ public class Locatable implements LocatableInterface {
             listener.propertyChange(event);
             listenerIndex++;
         }
+    }
+
+    protected void locationChanged(int changeInX, int changeInY) {
     }
 }

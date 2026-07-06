@@ -10,15 +10,16 @@ import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
 
 @StructurePattern(StructurePatternNames.IMAGE_PATTERN)
-@PropertyNames({"Text", "ImageFileName", "PropertyChangeListeners"})
-@EditablePropertyNames({"Text", "ImageFileName"})
+@PropertyNames({"X", "Y", "Width", "Height", "Text", "ImageFileName", "PropertyChangeListeners"})
+@EditablePropertyNames({"X", "Y", "Width", "Height", "Text", "ImageFileName"})
 public class Image extends BoundedShape implements ImageInterface {
     
     private String text;
     private String imageFileName;
     
-    public Image(int x, int y, int width, int height, String initialText, String initialImageFileName) {
-        super(x, y, width, height);
+    public Image(int initialX, int initialY, int initialWidth, int initialHeight, String initialText,
+            String initialImageFileName) {
+        super(initialX, initialY, initialWidth, initialHeight);
         this.text = initialText;
         this.imageFileName = initialImageFileName;
     }
@@ -29,10 +30,10 @@ public class Image extends BoundedShape implements ImageInterface {
     }
     
     @Override
-    public void setText(String newVal) {
+    public void setText(String newText) {
         String oldText = this.text;
-        this.text = newVal;
-        this.notifyAllListeners(new PropertyChangeEvent(this, "Text", oldText, newVal));
+        this.text = newText;
+        this.notifyAllListeners(new PropertyChangeEvent(this, "Text", oldText, newText));
     }
     
     @Override
@@ -41,9 +42,9 @@ public class Image extends BoundedShape implements ImageInterface {
     }
     
     @Override
-    public void setImageFileName(String newVal) {
+    public void setImageFileName(String newImageFileName) {
         String oldImageFileName = this.imageFileName;
-        this.imageFileName = newVal;
-        this.notifyAllListeners(new PropertyChangeEvent(this, "ImageFileName", oldImageFileName, newVal));
+        this.imageFileName = newImageFileName;
+        this.notifyAllListeners(new PropertyChangeEvent(this, "ImageFileName", oldImageFileName, newImageFileName));
     }
 }

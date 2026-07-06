@@ -1,5 +1,6 @@
 package grail.compositeShapes.classes;
 
+import grail.atomicShapes.classes.BoundedShape;
 import grail.compositeShapes.interfaces.AvatarInterface;
 import grail.compositeShapes.interfaces.StandingAreaInterface;
 import grail.simpleShapes.classes.RotatingLine;
@@ -11,27 +12,20 @@ import util.annotations.StructurePatternNames;
 import util.annotations.Visible;
 
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
-@PropertyNames({"TopLine", "RightLine", "BottomLine", "LeftLine"})
-@EditablePropertyNames({})
-public class StandingArea implements StandingAreaInterface {
+@PropertyNames({"X", "Y", "Width", "Height", "TopLine", "RightLine", "BottomLine", "LeftLine", "PropertyChangeListeners"})
+@EditablePropertyNames({"X", "Y", "Width", "Height"})
+public class StandingArea extends BoundedShape implements StandingAreaInterface {
     private static final double ZERO_ANGLE_RADIANS = 0;
     private static final double DOWN_DIRECTION_RADIANS = Math.PI / 2;
     private static final int CENTER_DIVISOR = 2;
 
-    private int x;
-    private int y;
-    private int width;
-    private int height;
-    private LineInterface topLine;
-    private LineInterface rightLine;
-    private LineInterface bottomLine;
-    private LineInterface leftLine;
+    private final LineInterface topLine;
+    private final LineInterface rightLine;
+    private final LineInterface bottomLine;
+    private final LineInterface leftLine;
 
     public StandingArea(int initialX, int initialY, int initialWidth, int initialHeight) {
-        this.x = initialX;
-        this.y = initialY;
-        this.width = initialWidth;
-        this.height = initialHeight;
+        super(initialX, initialY, initialWidth, initialHeight);
         this.topLine = new RotatingLine(initialX, initialY, initialWidth, ZERO_ANGLE_RADIANS);
         this.rightLine = new RotatingLine(initialX + initialWidth, initialY, initialHeight, DOWN_DIRECTION_RADIANS);
         this.bottomLine = new RotatingLine(initialX, initialY + initialHeight, initialWidth, ZERO_ANGLE_RADIANS);
@@ -61,22 +55,44 @@ public class StandingArea implements StandingAreaInterface {
     @Override
     @Visible(false)
     public int getCenterX() {
-        return this.x + this.width / CENTER_DIVISOR;
+        return this.getX() + this.getWidth() / CENTER_DIVISOR;
     }
 
     @Override
     @Visible(false)
     public int getCenterY() {
-        return this.y + this.height / CENTER_DIVISOR;
+        return this.getY() + this.getHeight() / CENTER_DIVISOR;
     }
 
     @Override
     public boolean contains(AvatarInterface avatar) {
         int avatarX = avatar.getX();
         int avatarY = avatar.getY();
-        return avatarX >= this.x
-                && avatarX <= this.x + this.width
-                && avatarY >= this.y
-                && avatarY <= this.y + this.height;
+        return avatarX >= this.getX()
+                && avatarX <= this.getX() + this.getWidth()
+                && avatarY >= this.getY()
+                && avatarY <= this.getY() + this.getHeight();
+    }
+
+    @Override
+    protected void locationChanged(int changeInX, int changeInY) {
+        this.topLine.move(changeInX, changeInY);
+        this.rightLine.move(changeInX, changeInY);
+        this.bottomLine.move(changeInX, changeInY);
+        this.leftLine.move(changeInX, changeInY);
+    }
+
+    @Override
+    protected void widthChanged(int oldWidth, int newWidth) {
+        this.topLine.setWidth(newWidth);
+        this.rightLine.setX(this.getX() + newWidth);
+        this.bottomLine.setWidth(newWidth);
+    }
+
+    @Override
+    protected void heightChanged(int oldHeight, int newHeight) {
+        this.rightLine.setHeight(newHeight);
+        this.bottomLine.setY(this.getY() + newHeight);
+        this.leftLine.setHeight(newHeight);
     }
 }

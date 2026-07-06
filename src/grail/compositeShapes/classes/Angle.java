@@ -22,17 +22,17 @@ public class Angle implements AngleInterface {
     private static final double DEFAULT_DOWN_DIRECTION_RADIANS = Math.PI / 2;
     private static final double ANGLE_SIDE_DIVISOR = 2.0;
 
-    private LineInterface leftLine;
-    private LineInterface rightLine;
+    private final LineInterface leftLine;
+    private final LineInterface rightLine;
 
     public Angle() {
         this(DEFAULT_X, DEFAULT_Y, DEFAULT_RADIUS, DEFAULT_SPLIT_ANGLE_RADIANS, DEFAULT_DOWN_DIRECTION_RADIANS);
     }
 
-    public Angle(int x, int y, double radius, double splitAngleRadians, double downDirectionRadians) {
-        this.leftLine = new RotatingLine(x, y, radius,
+    public Angle(int initialX, int initialY, double radius, double splitAngleRadians, double downDirectionRadians) {
+        this.leftLine = new RotatingLine(initialX, initialY, radius,
                 downDirectionRadians - splitAngleRadians / ANGLE_SIDE_DIVISOR);
-        this.rightLine = new RotatingLine(x, y, radius,
+        this.rightLine = new RotatingLine(initialX, initialY, radius,
                 downDirectionRadians + splitAngleRadians / ANGLE_SIDE_DIVISOR);
     }
 
@@ -47,14 +47,14 @@ public class Angle implements AngleInterface {
     }
 
     @Override
-    public void move(int x, int y) {
-        this.leftLine.move(x, y);
-        this.rightLine.move(x, y);
+    public void move(int changeInX, int changeInY) {
+        this.leftLine.move(changeInX, changeInY);
+        this.rightLine.move(changeInX, changeInY);
     }
 
     @Override
-    public void rotate(int angle) {
-        this.leftLine.rotate(angle);
-        this.rightLine.rotate(angle);
+    public void rotate(int rotationUnits) {
+        this.leftLine.rotate(rotationUnits);
+        this.rightLine.rotate(rotationUnits);
     }
 }

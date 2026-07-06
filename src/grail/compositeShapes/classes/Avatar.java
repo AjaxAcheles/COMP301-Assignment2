@@ -1,5 +1,6 @@
 package grail.compositeShapes.classes;
 
+import grail.atomicShapes.classes.Locatable;
 import grail.atomicShapes.classes.Text;
 import grail.atomicShapes.interfaces.TextInterface;
 import grail.compositeShapes.interfaces.AngleInterface;
@@ -18,9 +19,9 @@ import util.annotations.Tags;
 
 @Tags(Comp301Tags.AVATAR)
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
-@PropertyNames({"X", "Y", "SpeechBubble", "StringShape", "Head", "Arms", "Body", "Legs"})
+@PropertyNames({"X", "Y", "SpeechBubble", "StringShape", "Head", "Arms", "Body", "Legs", "PropertyChangeListeners"})
 @EditablePropertyNames({"X", "Y"})
-public class Avatar implements AvatarInterface {
+public class Avatar extends Locatable implements AvatarInterface {
     
     private static final int HEAD_WIDTH = 30;
     private static final int HEAD_HEIGHT = 30;
@@ -32,17 +33,14 @@ public class Avatar implements AvatarInterface {
     private static final double DOWN_DIRECTION_RADIANS = Math.PI / 2;
     private static final double SIZE_DIVISOR = 2.0;
     
-    private int x;
-    private int y;
-    private TextInterface speechBubble;
-    private ImageInterface head;
-    private AngleInterface arms;
-    private LineInterface body;
-    private AngleInterface legs;
+    private final TextInterface speechBubble;
+    private final ImageInterface head;
+    private final AngleInterface arms;
+    private final LineInterface body;
+    private final AngleInterface legs;
 
     public Avatar(int initialX, int initialY, String speech, String headImage) {
-        this.x = initialX;
-        this.y = initialY;
+        super(initialX, initialY);
 
         this.legs = Factory.legsFactoryMethod(initialX, initialY, LEG_RADIUS, LEG_SPLIT_ANGLE_RADIANS,
                 DOWN_DIRECTION_RADIANS);
@@ -58,27 +56,7 @@ public class Avatar implements AvatarInterface {
         this.head = new Image(neckX - (int) (HEAD_WIDTH / SIZE_DIVISOR), neckY - HEAD_HEIGHT,
                               HEAD_WIDTH, HEAD_HEIGHT, "", headImage);
 
-        this.speechBubble = new Text(speech, this.x + HEAD_WIDTH, neckY - HEAD_HEIGHT);
-    }
-
-    @Override
-    public int getX() {
-        return this.x;
-    }
-
-    @Override
-    public void setX(int newX) {
-        this.move(newX - this.x, 0);
-    }
-
-    @Override
-    public int getY() {
-        return this.y;
-    }
-
-    @Override
-    public void setY(int newY) {
-        this.move(0, newY - this.y);
+        this.speechBubble = new Text(speech, this.getX() + HEAD_WIDTH, neckY - HEAD_HEIGHT);
     }
     
     @Override
@@ -126,16 +104,19 @@ public class Avatar implements AvatarInterface {
 
     @Override
     public void move(int moveX, int moveY) {
-        this.x += moveX;
-        this.y += moveY;
+        this.setX(this.getX() + moveX);
+        this.setY(this.getY() + moveY);
+    }
 
-        this.legs.move(moveX, moveY);
-        this.body.move(moveX, moveY);
-        this.arms.move(moveX, moveY);
-        this.head.setX(this.head.getX() + moveX);
-        this.head.setY(this.head.getY() + moveY);
-        this.speechBubble.setX(this.speechBubble.getX() + moveX);
-        this.speechBubble.setY(this.speechBubble.getY() + moveY);
+    @Override
+    protected void locationChanged(int changeInX, int changeInY) {
+        this.legs.move(changeInX, changeInY);
+        this.body.move(changeInX, changeInY);
+        this.arms.move(changeInX, changeInY);
+        this.head.setX(this.head.getX() + changeInX);
+        this.head.setY(this.head.getY() + changeInY);
+        this.speechBubble.setX(this.speechBubble.getX() + changeInX);
+        this.speechBubble.setY(this.speechBubble.getY() + changeInY);
     }
 
     @Override

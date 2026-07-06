@@ -28,8 +28,8 @@ public class Factory {
         return consoleSceneView;
     }
 
-    public static AngleInterface legsFactoryMethod(int x, int y, double radius,
+    public static AngleInterface legsFactoryMethod(int initialX, int initialY, double radius,
             double splitAngleRadians, double downDirectionRadians) {
-        return new Angle(x, y, radius, splitAngleRadians, downDirectionRadians);
+        return new Angle(initialX, initialY, radius, splitAngleRadians, downDirectionRadians);
     }
 }

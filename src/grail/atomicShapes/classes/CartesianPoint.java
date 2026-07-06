@@ -1,8 +1,6 @@
 package grail.atomicShapes.classes;
 
 import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.List;
 
 import grail.atomicShapes.interfaces.PointInterface;
 import util.annotations.EditablePropertyNames;
@@ -10,91 +8,41 @@ import util.annotations.Explanation;
 import util.annotations.PropertyNames;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
-import util.annotations.Visible;
-import util.models.AListenableVector;
 
 @StructurePattern(StructurePatternNames.POINT_PATTERN)
 @Explanation("Location in Java coordinate System.")
 @PropertyNames({"X", "Y", "Angle", "Radius", "PropertyChangeListeners"})
 @EditablePropertyNames({"X", "Y", "Angle", "Radius"})
-public class CartesianPoint implements PointInterface {
-    private int x;
-    private int y;
-    private List<PropertyChangeListener> propertyChangeListeners;
+public class CartesianPoint extends Locatable implements PointInterface {
 
     public CartesianPoint(int initialX, int initialY) {
-        this.x = initialX;
-        this.y = initialY;
-        this.propertyChangeListeners = new AListenableVector<PropertyChangeListener>();
-    }
-
-    @Override
-    public int getX() { 
-        return x; 
-    }
-    @Override
-    public int getY() { 
-        return y; 
+        super(initialX, initialY);
     }
     
     @Override
     public double getAngle() {
-        return Math.atan2(y, x);
+        return Math.atan2(this.getY(), this.getX());
     }
     @Override
     public double getRadius() { 
-        return Math.sqrt(x * x + y * y); 
-    }
-    
-    @Override
-    public void setX(int newX) {
-        int oldX = this.x;
-        this.x = newX;
-        this.notifyAllListeners(new PropertyChangeEvent(this, "X", oldX, newX));
+        return Math.sqrt(this.getX() * this.getX() + this.getY() * this.getY()); 
     }
 
     @Override
-    public void setY(int newY) {
-        int oldY = this.y;
-        this.y = newY;
-        this.notifyAllListeners(new PropertyChangeEvent(this, "Y", oldY, newY));
-    }
-
-    @Override
-    public void setRadius(double radius) {
+    public void setRadius(double newRadius) {
         double oldRadius = this.getRadius();
-        double angleRadians = Math.atan2(y, x);
-        this.x = (int) Math.round(radius * Math.cos(angleRadians));
-        this.y = (int) Math.round(radius * Math.sin(angleRadians));
-        this.notifyAllListeners(new PropertyChangeEvent(this, "Radius", oldRadius, radius));
+        double angleRadians = this.getAngle();
+        this.setX((int) Math.round(newRadius * Math.cos(angleRadians)));
+        this.setY((int) Math.round(newRadius * Math.sin(angleRadians)));
+        this.notifyAllListeners(new PropertyChangeEvent(this, "Radius", oldRadius, newRadius));
     }
 
     @Override
     public void setAngle(double angleRadians) {
         double oldAngle = this.getAngle();
-        double radius = getRadius();
-        this.x = (int) Math.round(radius * Math.cos(angleRadians));
-        this.y = (int) Math.round(radius * Math.sin(angleRadians));
+        double radius = this.getRadius();
+        this.setX((int) Math.round(radius * Math.cos(angleRadians)));
+        this.setY((int) Math.round(radius * Math.sin(angleRadians)));
         this.notifyAllListeners(new PropertyChangeEvent(this, "Angle", oldAngle, angleRadians));
-    }
-
-    @Override
-    @Visible(false)
-    public List<PropertyChangeListener> getPropertyChangeListeners() {
-        return this.propertyChangeListeners;
-    }
-
-    @Override
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        this.propertyChangeListeners.add(listener);
-    }
-
-    private void notifyAllListeners(PropertyChangeEvent event) {
-        int listenerIndex = 0;
-        while (listenerIndex < this.propertyChangeListeners.size()) {
-            PropertyChangeListener listener = this.propertyChangeListeners.get(listenerIndex);
-            listener.propertyChange(event);
-            listenerIndex++;
-        }
     }
 }

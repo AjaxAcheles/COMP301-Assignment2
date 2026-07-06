@@ -15,6 +15,6 @@ import util.annotations.Tags;
 public interface AngleInterface {
     LineInterface getLeftLine();
     LineInterface getRightLine();
-    void move(int x, int y);
-    void rotate(int angle);
+    void move(int changeInX, int changeInY);
+    void rotate(int rotationUnits);
 }

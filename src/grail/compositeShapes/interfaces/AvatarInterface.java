@@ -1,5 +1,6 @@
 package grail.compositeShapes.interfaces;
 
+import grail.atomicShapes.interfaces.LocatableInterface;
 import grail.atomicShapes.interfaces.TextInterface;
 import grail.simpleShapes.interfaces.ImageInterface;
 import grail.simpleShapes.interfaces.LineInterface;
@@ -12,13 +13,9 @@ import util.annotations.Tags;
 
 @Tags(Comp301Tags.AVATAR)
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
-@PropertyNames({"X", "Y", "SpeechBubble", "StringShape", "Head", "Arms", "Body", "Legs"})
+@PropertyNames({"X", "Y", "SpeechBubble", "StringShape", "Head", "Arms", "Body", "Legs", "PropertyChangeListeners"})
 @EditablePropertyNames({"X", "Y"})
-public interface AvatarInterface {
-    int getX();
-    void setX(int newX);
-    int getY();
-    void setY(int newY);
+public interface AvatarInterface extends LocatableInterface {
     TextInterface getSpeechBubble();
     TextInterface getStringShape();
     ImageInterface getHead();

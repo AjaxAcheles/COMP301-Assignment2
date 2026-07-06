@@ -33,6 +33,7 @@ public class BoundedShape extends Locatable implements BoundedShapeInterface {
     public void setWidth(int newWidth) {
         int oldWidth = this.width;
         this.width = newWidth;
+        this.widthChanged(oldWidth, newWidth);
         this.notifyAllListeners(new PropertyChangeEvent(this, "Width", oldWidth, newWidth));
     }
 
@@ -45,6 +46,21 @@ public class BoundedShape extends Locatable implements BoundedShapeInterface {
     public void setHeight(int newHeight) {
         int oldHeight = this.height;
         this.height = newHeight;
+        this.heightChanged(oldHeight, newHeight);
         this.notifyAllListeners(new PropertyChangeEvent(this, "Height", oldHeight, newHeight));
+    }
+
+    protected void widthChanged(int oldWidth, int newWidth) {
+    }
+
+    protected void heightChanged(int oldHeight, int newHeight) {
+    }
+
+    protected void setWidthWithoutNotification(int newWidth) {
+        this.width = newWidth;
+    }
+
+    protected void setHeightWithoutNotification(int newHeight) {
+        this.height = newHeight;
     }
 }

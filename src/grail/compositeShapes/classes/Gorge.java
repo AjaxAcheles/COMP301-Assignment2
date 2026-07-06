@@ -15,16 +15,16 @@ public class Gorge implements GorgeInterface {
     private static final double ZERO_ANGLE_RADIANS = 0;
     private static final double DOWN_DIRECTION_RADIANS = Math.PI / 2;
 
-    private LineInterface leftWall;
-    private LineInterface rightWall;
-    private LineInterface bridgeTop;
-    private LineInterface bridgeBottom;
+    private final LineInterface leftWall;
+    private final LineInterface rightWall;
+    private final LineInterface bridgeTop;
+    private final LineInterface bridgeBottom;
 
-    public Gorge(int x, int y, int width, int height, int bridgeY, int bridgeHeight) {
-        this.leftWall = new RotatingLine(x, y, height, DOWN_DIRECTION_RADIANS);
-        this.rightWall = new RotatingLine(x + width, y, height, DOWN_DIRECTION_RADIANS);
-        this.bridgeTop = new RotatingLine(x, bridgeY, width, ZERO_ANGLE_RADIANS);
-        this.bridgeBottom = new RotatingLine(x, bridgeY + bridgeHeight, width, ZERO_ANGLE_RADIANS);
+    public Gorge(int initialX, int initialY, int width, int height, int bridgeY, int bridgeHeight) {
+        this.leftWall = new RotatingLine(initialX, initialY, height, DOWN_DIRECTION_RADIANS);
+        this.rightWall = new RotatingLine(initialX + width, initialY, height, DOWN_DIRECTION_RADIANS);
+        this.bridgeTop = new RotatingLine(initialX, bridgeY, width, ZERO_ANGLE_RADIANS);
+        this.bridgeBottom = new RotatingLine(initialX, bridgeY + bridgeHeight, width, ZERO_ANGLE_RADIANS);
     }
 
     @Override

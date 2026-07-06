@@ -55,14 +55,14 @@ public class BridgeScene implements BridgeSceneInterface {
     private static final String GUARD_SPEECH = "I am random guard";
     private static final String GUARD_IMAGE = "images/guard.jpg";
 	
-    private AvatarInterface arthur;
-    private AvatarInterface lancelot;
-    private AvatarInterface robin;
-    private AvatarInterface galahad;
-    private AvatarInterface guard;
-    private GorgeInterface gorge;
-    private StandingAreaInterface knightArea;
-    private StandingAreaInterface guardArea;
+    private final AvatarInterface arthur;
+    private final AvatarInterface lancelot;
+    private final AvatarInterface robin;
+    private final AvatarInterface galahad;
+    private final AvatarInterface guard;
+    private final GorgeInterface gorge;
+    private final StandingAreaInterface knightArea;
+    private final StandingAreaInterface guardArea;
     private boolean knightTurn;
     private AvatarInterface failureTarget;
 
@@ -192,12 +192,12 @@ public class BridgeScene implements BridgeSceneInterface {
     }
 
     @Override
-    public void scroll(int x, int y) {
-        this.arthur.move(-x, -y);
-        this.lancelot.move(-x, -y);
-        this.robin.move(-x, -y);
-        this.galahad.move(-x, -y);
-        this.guard.move(-x, -y);
+    public void scroll(int changeInX, int changeInY) {
+        this.arthur.move(-changeInX, -changeInY);
+        this.lancelot.move(-changeInX, -changeInY);
+        this.robin.move(-changeInX, -changeInY);
+        this.galahad.move(-changeInX, -changeInY);
+        this.guard.move(-changeInX, -changeInY);
     }
 
     private AvatarInterface getOccupyingKnight() {
@@ -223,8 +223,8 @@ public class BridgeScene implements BridgeSceneInterface {
                 || avatar == this.galahad;
     }
 
-    private void moveTo(AvatarInterface avatar, int x, int y) {
-        avatar.move(x - avatar.getX(), y - avatar.getY());
+    private void moveTo(AvatarInterface avatar, int targetX, int targetY) {
+        avatar.move(targetX - avatar.getX(), targetY - avatar.getY());
     }
 
     private void sayAs(AvatarInterface avatar, String text) {

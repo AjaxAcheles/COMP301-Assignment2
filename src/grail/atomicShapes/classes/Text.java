@@ -9,15 +9,15 @@ import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
 
 @StructurePattern(StructurePatternNames.STRING_PATTERN)
-@PropertyNames({"Text", "PropertyChangeListeners"})
-@EditablePropertyNames({"Text"})
+@PropertyNames({"X", "Y", "Text", "PropertyChangeListeners"})
+@EditablePropertyNames({"X", "Y", "Text"})
 public class Text extends Locatable implements TextInterface {
     
     private String text;
 
-    public Text(String initText, int initX, int initY) {
-        super(initX, initY);
-        this.text = initText;
+    public Text(String initialText, int initialX, int initialY) {
+        super(initialX, initialY);
+        this.text = initialText;
     }
     
     @Override
@@ -26,9 +26,9 @@ public class Text extends Locatable implements TextInterface {
     }
     
     @Override
-    public void setText(String newVal) {
+    public void setText(String newText) {
         String oldText = this.text;
-        this.text = newVal;
-        this.notifyAllListeners(new PropertyChangeEvent(this, "Text", oldText, newVal));
+        this.text = newText;
+        this.notifyAllListeners(new PropertyChangeEvent(this, "Text", oldText, newText));
     }
 }

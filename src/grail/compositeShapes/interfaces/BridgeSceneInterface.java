@@ -25,5 +25,5 @@ public interface BridgeSceneInterface {
     void say(String text);
     void passed();
     void failed();
-    void scroll(int x, int y);
+    void scroll(int changeInX, int changeInY);
 }
