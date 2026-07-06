@@ -10,8 +10,8 @@ import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
 
 @StructurePattern(StructurePatternNames.IMAGE_PATTERN)
-@PropertyNames({"X", "Y", "Width", "Height", "Text", "ImageFileName", "PropertyChangeListeners"})
-@EditablePropertyNames({"X", "Y", "Width", "Height", "Text", "ImageFileName"})
+@PropertyNames({"Text", "ImageFileName", "PropertyChangeListeners"})
+@EditablePropertyNames({"Text", "ImageFileName"})
 public class Image extends BoundedShape implements ImageInterface {
     
     private String text;

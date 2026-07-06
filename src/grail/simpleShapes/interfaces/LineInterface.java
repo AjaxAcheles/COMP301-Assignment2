@@ -10,8 +10,8 @@ import util.annotations.Tags;
 
 @Tags(Comp301Tags.ROTATING_LINE)
 @StructurePattern(StructurePatternNames.LINE_PATTERN)
-@PropertyNames({"X", "Y", "Width", "Height", "Radius", "Angle", "End", "PropertyChangeListeners"})
-@EditablePropertyNames({"X", "Y", "Width", "Height", "Radius", "Angle"})
+@PropertyNames({"Radius", "Angle", "End", "PropertyChangeListeners"})
+@EditablePropertyNames({"Radius", "Angle"})
 public interface LineInterface extends BoundedShapeInterface {
     double getRadius();
     double getAngle();
