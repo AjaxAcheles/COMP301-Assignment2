@@ -1,4 +1,4 @@
-package grail.shapes.interfaces;
+package grail.atomicShapes.interfaces;
 
 import java.beans.PropertyChangeListener;
 import java.util.List;

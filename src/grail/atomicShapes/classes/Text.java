@@ -3,7 +3,6 @@ package grail.atomicShapes.classes;
 import java.beans.PropertyChangeEvent;
 
 import grail.atomicShapes.interfaces.TextInterface;
-import grail.shapes.classes.Locatable;
 import util.annotations.EditablePropertyNames;
 import util.annotations.PropertyNames;
 import util.annotations.StructurePattern;

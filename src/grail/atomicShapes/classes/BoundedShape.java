@@ -1,8 +1,8 @@
-package grail.shapes.classes;
+package grail.atomicShapes.classes;
 
 import java.beans.PropertyChangeEvent;
 
-import grail.shapes.interfaces.BoundedShapeInterface;
+import grail.atomicShapes.interfaces.BoundedShapeInterface;
 import tags301.Comp301Tags;
 import util.annotations.EditablePropertyNames;
 import util.annotations.PropertyNames;

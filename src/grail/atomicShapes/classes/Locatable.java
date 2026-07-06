@@ -1,10 +1,10 @@
-package grail.shapes.classes;
+package grail.atomicShapes.classes;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
-import grail.shapes.interfaces.LocatableInterface;
+import grail.atomicShapes.interfaces.LocatableInterface;
 import tags301.Comp301Tags;
 import util.annotations.EditablePropertyNames;
 import util.annotations.PropertyNames;

@@ -1,6 +1,5 @@
 package grail.atomicShapes.interfaces;
 
-import grail.shapes.interfaces.LocatableInterface;
 import util.annotations.EditablePropertyNames;
 import util.annotations.PropertyNames;
 import util.annotations.StructurePattern;

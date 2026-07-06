@@ -1,4 +1,4 @@
-package grail.shapes.interfaces;
+package grail.atomicShapes.interfaces;
 
 import tags301.Comp301Tags;
 import util.annotations.EditablePropertyNames;
