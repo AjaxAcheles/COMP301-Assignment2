@@ -18,7 +18,7 @@ import util.models.PropertyListenerRegisterer;
 @Tags({Comp301Tags.CONSOLE_SCENE_VIEW})
 public class ConsoleSceneView implements ConsoleSceneViewInterface {
     public ConsoleSceneView() {
-        BridgeSceneInterface bridgeScene = Factory.getBridgeScene();
+        BridgeSceneInterface bridgeScene = Factory.bridgeSceneFactoryMethod();
         this.registerAvatar(bridgeScene.getArthur());
         this.registerAvatar(bridgeScene.getLancelot());
         this.registerAvatar(bridgeScene.getRobin());

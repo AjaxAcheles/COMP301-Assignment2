@@ -8,6 +8,7 @@ import grail.simpleShapes.classes.Image;
 import grail.simpleShapes.classes.RotatingLine;
 import grail.simpleShapes.interfaces.ImageInterface;
 import grail.simpleShapes.interfaces.LineInterface;
+import main.Factory;
 import tags301.Comp301Tags;
 import util.annotations.EditablePropertyNames;
 import util.annotations.PropertyNames;
@@ -43,7 +44,7 @@ public class Avatar implements AvatarInterface {
         this.x = x;
         this.y = y;
 
-        this.legs = new Angle(x, y, LEG_RADIUS, LEG_SPLIT_ANGLE_RADIANS, DOWN_DIRECTION_RADIANS);
+        this.legs = Factory.legsFactoryMethod(x, y, LEG_RADIUS, LEG_SPLIT_ANGLE_RADIANS, DOWN_DIRECTION_RADIANS);
 
         double bodyAngleRadians = -DOWN_DIRECTION_RADIANS;
         this.body = new RotatingLine(x, y, BODY_LENGTH, bodyAngleRadians);

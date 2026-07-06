@@ -5,17 +5,14 @@ import java.beans.PropertyChangeListener;
 import java.util.List;
 
 import grail.atomicShapes.interfaces.PointInterface;
-import tags301.Comp301Tags;
 import util.annotations.EditablePropertyNames;
 import util.annotations.Explanation;
 import util.annotations.PropertyNames;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
-import util.annotations.Tags;
 import util.annotations.Visible;
 import util.models.AListenableVector;
 
-@Tags(Comp301Tags.LOCATABLE)
 @StructurePattern(StructurePatternNames.POINT_PATTERN)
 @Explanation("Location in Java coordinate System.")
 @PropertyNames({"X", "Y", "Angle", "Radius", "PropertyChangeListeners"})

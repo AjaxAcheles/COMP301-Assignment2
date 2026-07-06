@@ -76,7 +76,7 @@ public class Assignment1 {
     }
 
     public static void demonstrateBridgeScene() {
-        BridgeSceneInterface bridgeScene = Factory.getBridgeScene();
+        BridgeSceneInterface bridgeScene = Factory.bridgeSceneFactoryMethod();
         ObjectEditor.edit(bridgeScene).setSize(EDITOR_WIDTH, EDITOR_HEIGHT);
         ThreadSupport.sleep(PAUSE_TIME_LONG);
     }

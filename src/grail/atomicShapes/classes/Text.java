@@ -4,14 +4,11 @@ import java.beans.PropertyChangeEvent;
 
 import grail.atomicShapes.interfaces.TextInterface;
 import grail.shapes.classes.Locatable;
-import tags301.Comp301Tags;
 import util.annotations.EditablePropertyNames;
 import util.annotations.PropertyNames;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
-import util.annotations.Tags;
 
-@Tags(Comp301Tags.LOCATABLE)
 @StructurePattern(StructurePatternNames.STRING_PATTERN)
 @PropertyNames({"X", "Y", "Text", "PropertyChangeListeners"})
 @EditablePropertyNames({"X", "Y", "Text"})

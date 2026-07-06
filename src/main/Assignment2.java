@@ -2,7 +2,6 @@ package main;
 
 import bus.uigen.ObjectEditor;
 import grail.compositeShapes.interfaces.BridgeSceneInterface;
-import grail.views.classes.ConsoleSceneView;
 import grail.views.interfaces.ConsoleSceneViewInterface;
 import util.misc.ThreadSupport;
 
@@ -25,9 +24,9 @@ public class Assignment2 {
     private static ConsoleSceneViewInterface consoleSceneView;
 
     public static void main(String[] args) {
-        BridgeSceneInterface bridgeScene = Factory.getBridgeScene();
+        BridgeSceneInterface bridgeScene = Factory.bridgeSceneFactoryMethod();
         ObjectEditor.edit(bridgeScene).setSize(EDITOR_WIDTH, EDITOR_HEIGHT);
-        consoleSceneView = new ConsoleSceneView();
+        consoleSceneView = Factory.consoleSceneViewFactoryMethod();
         runAnimation(bridgeScene);
     }
 

@@ -191,6 +191,15 @@ public class BridgeScene implements BridgeSceneInterface {
         }
     }
 
+    @Override
+    public void scroll(int x, int y) {
+        this.arthur.move(-x, -y);
+        this.lancelot.move(-x, -y);
+        this.robin.move(-x, -y);
+        this.galahad.move(-x, -y);
+        this.guard.move(-x, -y);
+    }
+
     private AvatarInterface getOccupyingKnight() {
         if (this.knightArea.contains(this.arthur)) {
             return this.arthur;
