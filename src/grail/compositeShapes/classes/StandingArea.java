@@ -27,15 +27,15 @@ public class StandingArea implements StandingAreaInterface {
     private LineInterface bottomLine;
     private LineInterface leftLine;
 
-    public StandingArea(int x, int y, int width, int height) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-        this.topLine = new RotatingLine(x, y, width, ZERO_ANGLE_RADIANS);
-        this.rightLine = new RotatingLine(x + width, y, height, DOWN_DIRECTION_RADIANS);
-        this.bottomLine = new RotatingLine(x, y + height, width, ZERO_ANGLE_RADIANS);
-        this.leftLine = new RotatingLine(x, y, height, DOWN_DIRECTION_RADIANS);
+    public StandingArea(int initialX, int initialY, int initialWidth, int initialHeight) {
+        this.x = initialX;
+        this.y = initialY;
+        this.width = initialWidth;
+        this.height = initialHeight;
+        this.topLine = new RotatingLine(initialX, initialY, initialWidth, ZERO_ANGLE_RADIANS);
+        this.rightLine = new RotatingLine(initialX + initialWidth, initialY, initialHeight, DOWN_DIRECTION_RADIANS);
+        this.bottomLine = new RotatingLine(initialX, initialY + initialHeight, initialWidth, ZERO_ANGLE_RADIANS);
+        this.leftLine = new RotatingLine(initialX, initialY, initialHeight, DOWN_DIRECTION_RADIANS);
     }
 
     @Override

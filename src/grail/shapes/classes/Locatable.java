@@ -23,9 +23,9 @@ public class Locatable implements LocatableInterface {
     private int y;
     private List<PropertyChangeListener> propertyChangeListeners;
 
-    public Locatable(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public Locatable(int initialX, int initialY) {
+        this.x = initialX;
+        this.y = initialY;
         this.propertyChangeListeners = new AListenableVector<PropertyChangeListener>();
     }
 

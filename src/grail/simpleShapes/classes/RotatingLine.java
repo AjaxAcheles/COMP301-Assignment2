@@ -32,12 +32,12 @@ public class RotatingLine extends BoundedShape implements LineInterface {
     }
 
     
-    public RotatingLine(int startX, int startY, double radius, double angleRadians) {
+    public RotatingLine(int startX, int startY, double radius, double initialAngleRadians) {
         super(startX, startY,
-                (int) Math.round(radius * Math.cos(angleRadians)),
-                (int) Math.round(radius * Math.sin(angleRadians)));
-        this.angleRadians = angleRadians;
-        this.endPoint = new PolarPoint(radius, angleRadians);
+                (int) Math.round(radius * Math.cos(initialAngleRadians)),
+                (int) Math.round(radius * Math.sin(initialAngleRadians)));
+        this.angleRadians = initialAngleRadians;
+        this.endPoint = new PolarPoint(radius, initialAngleRadians);
     }
 
     @Override

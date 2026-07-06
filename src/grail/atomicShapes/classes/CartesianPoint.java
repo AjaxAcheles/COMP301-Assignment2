@@ -22,9 +22,9 @@ public class CartesianPoint implements PointInterface {
     private int y;
     private List<PropertyChangeListener> propertyChangeListeners;
 
-    public CartesianPoint(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public CartesianPoint(int initialX, int initialY) {
+        this.x = initialX;
+        this.y = initialY;
         this.propertyChangeListeners = new AListenableVector<PropertyChangeListener>();
     }
 
@@ -47,17 +47,17 @@ public class CartesianPoint implements PointInterface {
     }
     
     @Override
-    public void setX(int x) {
+    public void setX(int newX) {
         int oldX = this.x;
-        this.x = x;
-        this.notifyAllListeners(new PropertyChangeEvent(this, "X", oldX, x));
+        this.x = newX;
+        this.notifyAllListeners(new PropertyChangeEvent(this, "X", oldX, newX));
     }
-    
+
     @Override
-    public void setY(int y) {
+    public void setY(int newY) {
         int oldY = this.y;
-        this.y = y;
-        this.notifyAllListeners(new PropertyChangeEvent(this, "Y", oldY, y));
+        this.y = newY;
+        this.notifyAllListeners(new PropertyChangeEvent(this, "Y", oldY, newY));
     }
 
     @Override

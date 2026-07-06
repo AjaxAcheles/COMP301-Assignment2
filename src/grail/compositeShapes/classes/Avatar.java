@@ -40,14 +40,15 @@ public class Avatar implements AvatarInterface {
     private LineInterface body;
     private AngleInterface legs;
 
-    public Avatar(int x, int y, String speech, String headImage) {
-        this.x = x;
-        this.y = y;
+    public Avatar(int initialX, int initialY, String speech, String headImage) {
+        this.x = initialX;
+        this.y = initialY;
 
-        this.legs = Factory.legsFactoryMethod(x, y, LEG_RADIUS, LEG_SPLIT_ANGLE_RADIANS, DOWN_DIRECTION_RADIANS);
+        this.legs = Factory.legsFactoryMethod(initialX, initialY, LEG_RADIUS, LEG_SPLIT_ANGLE_RADIANS,
+                DOWN_DIRECTION_RADIANS);
 
         double bodyAngleRadians = -DOWN_DIRECTION_RADIANS;
-        this.body = new RotatingLine(x, y, BODY_LENGTH, bodyAngleRadians);
+        this.body = new RotatingLine(initialX, initialY, BODY_LENGTH, bodyAngleRadians);
 
         int neckX = this.body.getX() + this.body.getEnd().getX();
         int neckY = this.body.getY() + this.body.getEnd().getY();

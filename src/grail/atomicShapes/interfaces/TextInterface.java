@@ -1,14 +1,11 @@
 package grail.atomicShapes.interfaces;
 
 import grail.shapes.interfaces.LocatableInterface;
-import tags301.Comp301Tags;
 import util.annotations.EditablePropertyNames;
 import util.annotations.PropertyNames;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
-import util.annotations.Tags;
 
-@Tags(Comp301Tags.LOCATABLE)
 @StructurePattern(StructurePatternNames.STRING_PATTERN)
 @PropertyNames({"X", "Y", "Text", "PropertyChangeListeners"})
 @EditablePropertyNames({"X", "Y", "Text"})

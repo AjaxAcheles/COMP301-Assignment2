@@ -18,10 +18,10 @@ public class BoundedShape extends Locatable implements BoundedShapeInterface {
     private int width;
     private int height;
 
-    public BoundedShape(int x, int y, int width, int height) {
-        super(x, y);
-        this.width = width;
-        this.height = height;
+    public BoundedShape(int initialX, int initialY, int initialWidth, int initialHeight) {
+        super(initialX, initialY);
+        this.width = initialWidth;
+        this.height = initialHeight;
     }
 
     @Override

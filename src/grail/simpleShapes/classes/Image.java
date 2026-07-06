@@ -17,10 +17,10 @@ public class Image extends BoundedShape implements ImageInterface {
     private String text;
     private String imageFileName;
     
-    public Image(int x, int y, int width, int height, String text, String imageFileName) {
+    public Image(int x, int y, int width, int height, String initialText, String initialImageFileName) {
         super(x, y, width, height);
-        this.text = text;
-        this.imageFileName = imageFileName;
+        this.text = initialText;
+        this.imageFileName = initialImageFileName;
     }
 
     @Override
