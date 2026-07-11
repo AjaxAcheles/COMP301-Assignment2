@@ -1,6 +1,5 @@
 package grail.compositeShapes.classes;
 
-import grail.atomicShapes.classes.BoundedShape;
 import grail.compositeShapes.interfaces.AvatarInterface;
 import grail.compositeShapes.interfaces.StandingAreaInterface;
 import grail.simpleShapes.classes.RotatingLine;

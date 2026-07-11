@@ -2,9 +2,9 @@ package grail.simpleShapes.classes;
 
 import java.beans.PropertyChangeEvent;
 
-import grail.atomicShapes.classes.BoundedShape;
 import grail.atomicShapes.classes.PolarPoint;
 import grail.atomicShapes.interfaces.PointInterface;
+import grail.compositeShapes.classes.BoundedShape;
 import grail.simpleShapes.interfaces.LineInterface;
 import tags301.Comp301Tags;
 import util.annotations.EditablePropertyNames;

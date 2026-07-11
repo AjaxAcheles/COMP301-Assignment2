@@ -1,5 +1,6 @@
-package grail.atomicShapes.interfaces;
+package grail.compositeShapes.interfaces;
 
+import grail.atomicShapes.interfaces.LocatableInterface;
 import tags301.Comp301Tags;
 import util.annotations.EditablePropertyNames;
 import util.annotations.PropertyNames;

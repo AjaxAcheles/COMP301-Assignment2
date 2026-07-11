@@ -2,7 +2,7 @@ package grail.simpleShapes.classes;
 
 import java.beans.PropertyChangeEvent;
 
-import grail.atomicShapes.classes.BoundedShape;
+import grail.compositeShapes.classes.BoundedShape;
 import grail.simpleShapes.interfaces.ImageInterface;
 import util.annotations.EditablePropertyNames;
 import util.annotations.PropertyNames;

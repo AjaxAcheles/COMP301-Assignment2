@@ -1,6 +1,6 @@
 package grail.simpleShapes.interfaces;
-import grail.atomicShapes.interfaces.BoundedShapeInterface;
 import grail.atomicShapes.interfaces.PointInterface;
+import grail.compositeShapes.interfaces.BoundedShapeInterface;
 import tags301.Comp301Tags;
 import util.annotations.EditablePropertyNames;
 import util.annotations.PropertyNames;
