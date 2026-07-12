@@ -1,4 +1,4 @@
-# COMP 301 Assignment 2 + Assignment 2.1 Extra Credit — Human Walkthrough
+# COMP 301 Assignment 2 + Assignment 2.1 Extra Credit 
 
 This walkthrough is written for a human student working in Eclipse/VS Code on this repository. It is intentionally detailed because this course grades not only behavior, but also **style, annotations, inheritance structure, package structure, legal imports, and LocalChecks/CheckStyle compliance**.
 
